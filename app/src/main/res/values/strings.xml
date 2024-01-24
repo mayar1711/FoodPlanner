@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">Food Planner</string>
+    <string name="login"> Login </string>
+    <string name="sign_up">Sign up</string>
+    <string name="full_name">Full Name</string>
+    <string name="password_content">Password</string>
+    <string name="or_login">or login with</string>
+    <string name="or_sign_up">or sign up with</string>
+    <string name="email_content">E-mail</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="or_sign_up_with">Or sign up with</string>
+    <string name="fui_sign_in_with_email">fui_sign_in_with_email</string>
+    <string name="fui_sign_in_with_google">fui_sign_in_with_google</string>
+    <string name="dont_have_an_account">Dont Have an account?</string>
+    <string name="forget_password">Forget Password</string>
+    <string name="google_signup">Google Signup</string>
+    <string name="google_login">Google Login</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="skip">Skip Now</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Search</string>
+    <string name="title_notifications">Favorite</string>
 </resources>
