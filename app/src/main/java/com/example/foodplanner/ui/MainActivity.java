@@ -1,10 +1,12 @@
-package com.example.foodplanner;
+package com.example.foodplanner.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Bundle;
+
+import com.example.foodplanner.R;
 
 public class MainActivity extends AppCompatActivity {
 

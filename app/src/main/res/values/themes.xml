@@ -143,9 +143,9 @@
         <item name="android:textColor">@color/black_400</item>
     </style>
 
-    <style name="Theme.WeNews.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.FoodPlanner.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="Theme.WeNews.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.FoodPlanner.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="AlertDialogThemeCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:textColor">@color/alertdialog_black</item>
