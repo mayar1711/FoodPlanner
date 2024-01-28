@@ -98,7 +98,6 @@ public class HomeFragment extends Fragment implements OnCategoryClickListener, C
             String imageUrl = mealOfTheDay.getStrMealThumb();
             Glide.with(requireContext())
                     .load(imageUrl)
-                  //  .placeholder(R.drawable.placeholder_image) // Placeholder image while loading
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(imageView);
             Toast.makeText(requireActivity(), mealOfTheDay.getStrMeal(), Toast.LENGTH_SHORT).show();

@@ -2,7 +2,6 @@ package com.example.foodplanner.ui.search.presenter;
 
 import com.example.foodplanner.model.repositry.RepositoryInterface;
 import com.example.foodplanner.model.response.CuisineResponse;
-import com.example.foodplanner.ui.home.presinter.CategoryView;
 
 import retrofit2.Call;
 import retrofit2.Callback;

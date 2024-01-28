@@ -3,7 +3,6 @@ package com.example.foodplanner.model.network;
 import com.example.foodplanner.model.response.CategoryResponse;
 import com.example.foodplanner.model.response.CuisineResponse;
 import com.example.foodplanner.model.response.MealResponse;
-
 import retrofit2.Call;
 import retrofit2.http.GET;
 

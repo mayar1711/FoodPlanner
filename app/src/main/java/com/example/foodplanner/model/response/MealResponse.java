@@ -1,6 +1,5 @@
 package com.example.foodplanner.model.response;
 
-import com.example.foodplanner.model.data.Cuisine;
 import com.example.foodplanner.model.data.Meal;
 
 import java.util.List;
