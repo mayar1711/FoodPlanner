@@ -15,11 +15,13 @@
     <string name="forget_password">Forget Password</string>
     <string name="google_signup">Google Signup</string>
     <string name="google_login">Google Login</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="skip">Skip Now</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Search</string>
     <string name="title_notifications">Favorite</string>
+    <string name="meal_of_day">A meal you might like</string>
+    <string name="category">Category </string>
+
 </resources>
