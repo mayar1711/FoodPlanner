@@ -1,9 +1,9 @@
 package com.example.foodplanner.model.data;
 
 public class Cuisine {
-    private String strArea; // Adjusted field name
+    private String strArea;
 
-    public String getStrArea() {
+    public String getStrArea(){
         return strArea;
     }
 

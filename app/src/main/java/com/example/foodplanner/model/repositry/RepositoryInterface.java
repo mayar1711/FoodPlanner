@@ -9,7 +9,6 @@ import retrofit2.Callback;
 public interface RepositoryInterface {
     void getCategories(Callback<CategoryResponse> callback);
     void getCuisine(Callback<CuisineResponse> callback);
-
     void getMealList(Callback<MealResponse> callback);
 
 }
