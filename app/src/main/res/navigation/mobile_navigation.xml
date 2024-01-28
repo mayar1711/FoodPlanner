@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.foodplanner.ui.home.HomeFragment"
+        android:name="com.example.foodplanner.ui.home.view.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_search"
-        android:name="com.example.foodplanner.ui.search.SearchFragment"
+        android:name="com.example.foodplanner.ui.search.view.SearchFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_search" />
 </navigation>
