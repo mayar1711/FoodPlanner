@@ -8,7 +8,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,6 +43,7 @@ public class HomeFragment extends Fragment implements OnCategoryClickListener, C
     private TextView meal;
     private ImageView imageView;
     private List<Meal> meals;
+    private CardView mealRandom ;
 
 
     private static final String TAG ="home ";
@@ -61,6 +64,7 @@ public class HomeFragment extends Fragment implements OnCategoryClickListener, C
         recyclerView =view.findViewById(R.id.recycler);
         meal=view.findViewById(R.id.tv_meal_day);
         imageView=view.findViewById(R.id.imageViewOfTheDay);
+        mealRandom=view.findViewById(R.id.cardViewRandomMeal);
         categoryAdapter = new CategoryAdapter();
         LinearLayoutManager linearLayoutManager1 =new LinearLayoutManager(requireActivity());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
@@ -83,6 +87,7 @@ public class HomeFragment extends Fragment implements OnCategoryClickListener, C
     public void showCategories(List<Category> categories) {
         categoryAdapter.setCategories(categories);
         categoryAdapter.notifyDataSetChanged();
+
     }
 
     @Override
@@ -101,7 +106,11 @@ public class HomeFragment extends Fragment implements OnCategoryClickListener, C
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(imageView);
             Toast.makeText(requireActivity(), mealOfTheDay.getStrMeal(), Toast.LENGTH_SHORT).show();
-
+            mealRandom.setOnClickListener(v -> {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("meal", meals.get(0));
+                Navigation.findNavController(requireView()).navigate(R.id.action_navigation_home_to_mealDetailFragment,bundle);
+            });
         } else {
             meal.setText("No meals available");
             Toast.makeText(requireActivity(), "error", Toast.LENGTH_SHORT).show();

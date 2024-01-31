@@ -1,4 +1,4 @@
-package com.example.foodplanner.ui.authentication.model;
+package com.example.foodplanner.model.firebase;
 
 import android.app.Activity;
 import android.content.Intent;

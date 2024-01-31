@@ -12,13 +12,17 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_cuisine"
-            android:layout_width="430dp"
-            android:layout_height="27dp"
+            android:layout_width="439dp"
+            android:layout_height="106dp"
             android:layout_marginTop="36dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            tools:itemCount="10"
+            tools:orientation="horizontal"
+            tools:spanCount = "2"
+            tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             tools:listitem="@layout/cuisine_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

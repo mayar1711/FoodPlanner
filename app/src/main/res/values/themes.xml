@@ -159,4 +159,8 @@
 
     <color name="alertdialog_black">#FF000000</color>
     <color name="alertdialog_whitegrey">#FFF2F2F2</color>
+    <style name="Theme.FoodPlanner.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>

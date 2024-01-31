@@ -1,4 +1,4 @@
-package com.example.foodplanner.ui.authentication.model;
+package com.example.foodplanner.model.firebase;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.AuthResult;

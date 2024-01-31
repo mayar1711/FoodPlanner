@@ -1,4 +1,4 @@
-package com.example.foodplanner.ui.authentication.Controller;
+package com.example.foodplanner.ui.authentication.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,10 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodplanner.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.foodplanner.ui.authentication.Controller.AuthenticationController;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthResult;
 
 public class SignUpFragment extends Fragment {
 
@@ -58,12 +56,10 @@ public class SignUpFragment extends Fragment {
     private void signUp() {
         String email = etEmail.getText().toString();
         String password = etPassword.getText().toString();
-
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
             Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
             return;
         }
-
         AuthenticationController.getInstance().signUp(email, password, task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(requireContext(), "Signup Successful", Toast.LENGTH_SHORT).show();
@@ -72,7 +68,5 @@ public class SignUpFragment extends Fragment {
             }
         });
     }
-    // In your onClickListener or wherever you want to trigger Google Sign In
-
 
 }

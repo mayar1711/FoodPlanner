@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources><style name="header_two">
+        <item name="android:textColor">@color/outline_color</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="header_one">
+        <item name="android:textColor">@color/outline_color</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="header_three">
+        <item name="android:textColor">@color/outline_color</item>
+    </style>
+
+</resources>
