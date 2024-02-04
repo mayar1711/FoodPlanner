@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_navigation_home_to_mealDetailFragment"
             app:destination="@id/mealDetailFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_categoryList"
+            app:destination="@id/categoryList" />
     </fragment>
 
     <fragment
@@ -39,5 +42,14 @@
         <argument
             android:name="meals"
             app:argType="com.example.foodplanner.model.data.Meal" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryList"
+        android:name="com.example.foodplanner.ui.meallist.CategoryList"
+        android:label="fragment_category_list"
+        tools:layout="@layout/fragment_category_list" >
+        <argument
+            android:name="name"
+            app:argType="string" />
     </fragment>
 </navigation>

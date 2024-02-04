@@ -19,7 +19,11 @@ import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
     private List<Category> categories;
+    private OnCategoryClickListener clickListener;
 
+    public void setClickListener(OnCategoryClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
     public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
@@ -39,7 +43,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                 .load(category.getStrCategoryThumb())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.categoryImage);
-
+        holder.itemView.setOnClickListener(v -> {
+            if (clickListener != null) {
+                clickListener.onClickCategory(category);
+            }
+        });
     }
 
     @Override
@@ -55,6 +63,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             super(itemView);
             categoryImage = itemView.findViewById(R.id.imageView);
             categoryName = itemView.findViewById(R.id.textView3);
+
         }
     }
 

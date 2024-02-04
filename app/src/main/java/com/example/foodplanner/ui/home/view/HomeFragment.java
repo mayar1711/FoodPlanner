@@ -28,6 +28,7 @@ import com.example.foodplanner.ui.home.presinter.CategoryPresenterImpl;
 import com.example.foodplanner.ui.home.presinter.MealPresenter;
 import com.example.foodplanner.ui.home.presinter.MealPresenterImpl;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class HomeFragment extends Fragment implements OnCategoryClickListener, CategoryAdapter.CategoryView, MealView {
@@ -64,6 +65,7 @@ public class HomeFragment extends Fragment implements OnCategoryClickListener, C
         imageView=view.findViewById(R.id.imageViewOfTheDay);
         mealRandom=view.findViewById(R.id.cardViewRandomMeal);
         categoryAdapter = new CategoryAdapter();
+        categoryAdapter.setClickListener(this);
         LinearLayoutManager linearLayoutManager1 =new LinearLayoutManager(requireActivity());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -77,8 +79,11 @@ public class HomeFragment extends Fragment implements OnCategoryClickListener, C
 
     }
     @Override
-    public void onClickCategory(String id) {
-
+    public void onClickCategory(Category category) {
+        Toast.makeText(requireActivity(), "Clicked category: " + category.getStrCategory(), Toast.LENGTH_SHORT).show();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("category", (Serializable) category);
+        Navigation.findNavController(requireView()).navigate(R.id.action_navigation_home_to_categoryList, bundle);
     }
 
     @Override
