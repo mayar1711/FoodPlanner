@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--todo: old dimens, don't forget to delete them-->
     <dimen name="text_size_giant">24sp</dimen>
     <dimen name="text_size_large">20sp</dimen>
     <dimen name="text_size_medium">16sp</dimen>
     <dimen name="text_size_normal">14sp</dimen>
+    <dimen name="margin_Xgiant">24dp</dimen>
+    <dimen name="margin_XXgiant">38dp</dimen>
     <dimen name="margin_giant">24dp</dimen>
     <dimen name="margin_medium">16dp</dimen>
     <dimen name="margin_small">8dp</dimen>
@@ -43,7 +44,9 @@
     <dimen name="text_large">18sp</dimen>
     <dimen name="text_giant">20sp</dimen>
     <dimen name="text_xgiant">24sp</dimen>
+    <dimen name="text_xxgiant">40sp</dimen>
     <dimen name="very_tiny">2sp</dimen>
+
 
     <!--radius dimens-->
     <dimen name="radius_tiny">4dp</dimen>

@@ -68,8 +68,8 @@ public class HomeFragment extends Fragment implements OnCategoryClickListener, C
         categoryAdapter = new CategoryAdapter();
         LinearLayoutManager linearLayoutManager1 =new LinearLayoutManager(requireActivity());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
-        linearLayoutManager1.setOrientation(RecyclerView.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager1);
+        gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(categoryAdapter);
         ApiService apiService = ApiClient.getApiService();
         categoryPresenter = new CategoryPresenterImpl(new RepositoryImpl(apiService), this);

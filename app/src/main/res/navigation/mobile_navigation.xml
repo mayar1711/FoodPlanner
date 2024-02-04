@@ -28,7 +28,7 @@
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/mealDetailFragment"
-        android:name="com.example.foodplanner.ui.mealdetail.MealDetailFragment"
+        android:name="com.example.foodplanner.ui.mealdetail.view.MealDetailFragment"
         android:label="MealDetailFragment"
         tools:layout="@layout/fragment_meal_detail"
         >

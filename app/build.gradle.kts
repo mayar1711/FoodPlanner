@@ -67,17 +67,18 @@ dependencies {
     //room
     implementation("androidx.room:room-runtime:2.6.1")
     annotationProcessor("androidx.room:room-compiler:2.6.1")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    // RXJava3
-    implementation ("com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0")
-    implementation ("io.reactivex.rxjava3:rxandroid:3.0.2")
+    implementation ("androidx.room:room-rxjava3:2.4.0")
+    implementation("com.squareup.retrofit2:retrofit:2.3.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("io.reactivex.rxjava3:rxjava:3.0.2")
+    implementation("com.squareup.retrofit2:adapter-rxjava3:2.9.0") // RxJava 3 adapter
+    implementation("io.reactivex.rxjava3:rxandroid:3.0.2")
     //rounded images
     implementation ("com.makeramen:roundedimageview:2.3.0")
     implementation ("de.hdodenhof:circleimageview:3.1.0")
     //youtubeVideo
     implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
-
+    //Lotti Dependency
+    implementation ("com.airbnb.android:lottie:3.4.1")
 
 }
