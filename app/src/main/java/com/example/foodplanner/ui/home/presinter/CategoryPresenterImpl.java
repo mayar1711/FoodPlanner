@@ -3,15 +3,11 @@ package com.example.foodplanner.ui.home.presinter;
 
 import com.example.foodplanner.model.repositry.RepositoryInterface;
 import com.example.foodplanner.model.response.CategoryResponse;
+import io.reactivex.rxjava3.disposables.Disposable;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class CategoryPresenterImpl implements CategoryPresenter  {
+public class CategoryPresenterImpl implements CategoryPresenter {
     private final RepositoryInterface categoryRepository;
     private final CategoryView categoryView;
-
 
     public CategoryPresenterImpl(RepositoryInterface categoryRepository, CategoryView categoryView) {
         this.categoryRepository = categoryRepository;
@@ -19,24 +15,25 @@ public class CategoryPresenterImpl implements CategoryPresenter  {
     }
 
     @Override
-    public void getCategories() {
-        categoryRepository.getCategories(new Callback<CategoryResponse>() {
+    public Disposable getCategories() {
+        return categoryRepository.getCategories(new io.reactivex.rxjava3.core.SingleObserver<CategoryResponse>() {
             @Override
-            public void onResponse(Call<CategoryResponse> call, Response<CategoryResponse> response) {
-                if (response.isSuccessful()) {
-                    if (response.body() != null) {
-                        categoryView.showCategories(response.body().getCategories());
-                    }
+            public void onSubscribe(Disposable d) {
+            }
+
+            @Override
+            public void onSuccess(CategoryResponse categoryResponse) {
+                if (categoryResponse != null) {
+                    categoryView.showCategories(categoryResponse.getCategories());
                 } else {
                     categoryView.showError("Failed to fetch categories");
                 }
             }
 
             @Override
-            public void onFailure(Call<CategoryResponse> call, Throwable t) {
-                categoryView.showError(t.getMessage());
+            public void onError(Throwable e) {
+                categoryView.showError(e.getMessage());
             }
         });
     }
-
 }
