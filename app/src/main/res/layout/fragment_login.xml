@@ -22,7 +22,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/my_logo" />
+                app:srcCompat="@drawable/mangiami" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/et_email"

@@ -9,11 +9,15 @@
         android:id="@+id/navigation_home"
         android:name="com.example.foodplanner.ui.home.view.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_mealDetailFragment"
+            app:destination="@id/mealDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_favorite"
-        android:name="com.example.foodplanner.ui.favorite.FavoriteFragment"
+        android:name="com.example.foodplanner.ui.favorite.view.FavoriteFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_favorite" />
 
@@ -22,4 +26,14 @@
         android:name="com.example.foodplanner.ui.search.view.SearchFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/mealDetailFragment"
+        android:name="com.example.foodplanner.ui.mealdetail.view.MealDetailFragment"
+        android:label="MealDetailFragment"
+        tools:layout="@layout/fragment_meal_detail"
+        >
+        <argument
+            android:name="meals"
+            app:argType="com.example.foodplanner.model.data.Meal" />
+    </fragment>
 </navigation>

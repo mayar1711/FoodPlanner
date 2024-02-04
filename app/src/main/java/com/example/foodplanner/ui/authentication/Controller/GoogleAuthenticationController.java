@@ -3,7 +3,7 @@ package com.example.foodplanner.ui.authentication.Controller;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.example.foodplanner.ui.authentication.model.GoogleAuthenticationModel;
+import com.example.foodplanner.model.firebase.GoogleAuthenticationModel;
 
 public class GoogleAuthenticationController {
 

@@ -13,4 +13,25 @@
     <color name="white_400">#DEF2F2F2</color>
     <color name="white_300">#99F2F2F2</color>
     <color name="white_100">#A5A5A5</color>
+
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#E27878</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="cadmium_orange">#F28832</color>
+    <color name="battery_charged_blue">#1E98D5</color>
+    <color name="outline_color">#20272C</color>
+    <color name="not_focus">#B2B2B2</color>
+    <color name="neutral">#EDEFF4</color>
+    <color name="calamansi">#FFFBAC</color>
+    <color name="item_color_one">#8DCBE6</color>
+    <color name="item_color_two">#C8FFD4</color>
+    <color name="dark_green">#023020</color>
+    <color name="dark_grey">#1E1E1E</color>
+    <color name="search_focus">#FFCFCBCB</color>
+    //indicator color
+    <color name="inactive">#C4C4C4</color>
+    <color name="active">#E27878</color>
+
 </resources>

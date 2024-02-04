@@ -13,7 +13,4 @@ public interface ApiService {
     Call<CuisineResponse> getCuisine();
     @GET("random.php")
     Call<MealResponse> getMeals();
-
-
 }
-

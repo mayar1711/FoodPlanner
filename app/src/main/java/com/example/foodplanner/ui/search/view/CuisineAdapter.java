@@ -52,4 +52,4 @@ public class CuisineAdapter  extends RecyclerView.Adapter<CuisineAdapter.ViewHol
             cuisineName=itemView.findViewById(R.id.tv_cuisine_name);
         }
     }
-    }
+}

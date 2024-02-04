@@ -24,7 +24,7 @@ public class CuisinePresenterImp implements CuisinePresenter{
                 {
                     if(response.body()!=null)
                     {
-                        cuisineView.showCuisine(response.body().getCuisines());
+                        cuisineView.showCuisine(response.body().getMeals());
                     }
                 }
                 else
