@@ -45,11 +45,11 @@
     </fragment>
     <fragment
         android:id="@+id/categoryList"
-        android:name="com.example.foodplanner.ui.meallist.CategoryList"
+        android:name="com.example.foodplanner.ui.meallist.view.CategoryList"
         android:label="fragment_category_list"
         tools:layout="@layout/fragment_category_list" >
         <argument
             android:name="name"
-            app:argType="string" />
+            app:argType="com.example.foodplanner.model.data.Category" />
     </fragment>
 </navigation>

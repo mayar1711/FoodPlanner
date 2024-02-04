@@ -49,6 +49,16 @@ public class HomeFragment extends Fragment implements OnCategoryClickListener, C
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        if (bundle != null && bundle.containsKey("category")) {
+            Category category = (Category) bundle.getSerializable("category");
+
+            // Now you can use the 'category' object as needed
+            if (category != null) {
+                String categoryName = category.getStrCategory();
+                // Do something with the category name
+            }
+        }
     }
 
     @Override
@@ -86,6 +96,7 @@ public class HomeFragment extends Fragment implements OnCategoryClickListener, C
         Navigation.findNavController(requireView()).navigate(R.id.action_navigation_home_to_categoryList, bundle);
     }
 
+
     @Override
     public void showCategories(List<Category> categories) {
         categoryAdapter.setCategories(categories);
@@ -120,8 +131,6 @@ public class HomeFragment extends Fragment implements OnCategoryClickListener, C
 
         }
     }
-
-
     @Override
     public void displayError(String message) {
         Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();

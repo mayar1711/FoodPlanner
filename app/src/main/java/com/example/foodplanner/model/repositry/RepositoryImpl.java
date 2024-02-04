@@ -4,9 +4,11 @@ import android.util.Log;
 import com.example.foodplanner.model.network.ApiService;
 import com.example.foodplanner.model.response.CategoryResponse;
 import com.example.foodplanner.model.response.CuisineResponse;
+import com.example.foodplanner.model.response.MealPreviewResponse;
 import com.example.foodplanner.model.response.MealResponse;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.Disposable;
@@ -108,6 +110,12 @@ public class RepositoryImpl implements RepositoryInterface {
                 Log.i(TAG, "onFailure: " );
             }
         });
+    }
+
+    @Override
+    public Single<MealPreviewResponse> getMealsByCategory(String category) {
+        Log.d("RepositoryImpl", "Category for API call: " + category);
+        return apiService.getMealsByCategory(category);
     }
 
 }
