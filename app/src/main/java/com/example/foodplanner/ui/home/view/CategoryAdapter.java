@@ -57,4 +57,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             categoryName = itemView.findViewById(R.id.textView3);
         }
     }
+
+    public static interface CategoryView {
+        void showCategories(List<Category> categories);
+        void showError(String error);
+    }
 }

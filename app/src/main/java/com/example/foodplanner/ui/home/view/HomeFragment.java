@@ -25,14 +25,12 @@ import com.example.foodplanner.model.network.ApiService;
 import com.example.foodplanner.model.repositry.RepositoryImpl;
 import com.example.foodplanner.ui.home.presinter.CategoryPresenter;
 import com.example.foodplanner.ui.home.presinter.CategoryPresenterImpl;
-import com.example.foodplanner.ui.home.presinter.CategoryView;
 import com.example.foodplanner.ui.home.presinter.MealPresenter;
 import com.example.foodplanner.ui.home.presinter.MealPresenterImpl;
-import com.example.foodplanner.ui.home.presinter.MealView;
 
 import java.util.List;
 
-public class HomeFragment extends Fragment implements OnCategoryClickListener, CategoryView , MealView {
+public class HomeFragment extends Fragment implements OnCategoryClickListener, CategoryAdapter.CategoryView, MealView {
 
     private RecyclerView recyclerView;
 

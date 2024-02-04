@@ -1,8 +1,9 @@
 package com.example.foodplanner.ui.home.presinter;
 
-import android.util.Log;
 import com.example.foodplanner.model.repositry.RepositoryInterface;
 import com.example.foodplanner.model.response.MealResponse;
+import com.example.foodplanner.ui.home.view.MealView;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
