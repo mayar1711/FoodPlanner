@@ -43,5 +43,6 @@ public class MealRepoImp implements MealRepo{
     @Override
     public Flowable<List<Meal>> getFavProducts() {
         return mealLocalDatasource.getFavMeals();
+
     }
 }

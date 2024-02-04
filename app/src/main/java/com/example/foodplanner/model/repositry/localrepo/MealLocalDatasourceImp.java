@@ -48,6 +48,9 @@ public class MealLocalDatasourceImp implements MealLocalDatasource{
 
     @Override
     public Flowable<List<Meal>> getFavMeals() {
+        if (favMeals == null) {
+            favMeals = mealDao.getAllProducts();
+        }
         return favMeals;
     }
     public LiveData<List<Meal>> getProducts() {
