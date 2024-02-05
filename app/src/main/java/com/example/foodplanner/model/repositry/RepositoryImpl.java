@@ -66,30 +66,12 @@ public class RepositoryImpl implements RepositoryInterface {
                 .subscribe(observer::onSuccess, observer::onError);
     }
 
-
     @Override
-    public void getMealList(Callback<MealResponse> callback) {
-        Call <MealResponse> call=apiService.getMeals();
-        call.enqueue(new Callback<MealResponse>() {
-            @Override
-            public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
-                if (response.isSuccessful()) {
-                    if (response.body() != null) {
-                        callback.onResponse(call, Response.success(response.body()));
-                        Log.i(TAG, "isSuccessful: "+ response.body() );
-                    }
-                } else {
-                    callback.onFailure(call, new Throwable("Failed to fetch meal"));
-                    Log.i(TAG, "not: " );
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MealResponse> call, Throwable t) {
-                callback.onFailure(call, t);
-                Log.i(TAG, "onFailure: " );
-            }
-        });
+    public Disposable getMealList(SingleObserver<MealResponse> observer) {
+        return apiService.getMeals()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer::onSuccess, observer::onError);
     }
 
     @Override

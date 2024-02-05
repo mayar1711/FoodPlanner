@@ -14,7 +14,7 @@ public interface RepositoryInterface {
 
     Disposable getCuisine(io.reactivex.rxjava3.core.SingleObserver<CuisineResponse> observer);
 
-    void getMealList(Callback<MealResponse> callback);
+    Disposable getMealList(io.reactivex.rxjava3.core.SingleObserver<MealResponse> observer);
     Single<MealPreviewResponse> getMealsByCategory(String category);
 
 

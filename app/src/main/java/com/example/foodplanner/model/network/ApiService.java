@@ -15,7 +15,7 @@ public interface ApiService {
     @GET("list.php?a=list")
     Single<CuisineResponse> getCuisine();
     @GET("random.php")
-    Call<MealResponse> getMeals();
+    Single<MealResponse> getMeals();
     @GET("filter.php")
     public Single<MealPreviewResponse> getMealsByIngredient(@Query("i") String ingredient);
     @GET("filter.php")
