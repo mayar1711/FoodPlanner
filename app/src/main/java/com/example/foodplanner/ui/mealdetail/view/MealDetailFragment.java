@@ -74,8 +74,13 @@ public class MealDetailFragment extends Fragment implements MealDetailContractVi
     public void displayMealDetails(Meal meal) {
         textViewMealName.setText(meal.getStrMeal());
         categoryName.setText(meal.getStrCategory());
+        Log.i("TAG", "displayMealDetails: "+meal.getStrCategory());
         area.setText(meal.strArea);
+        Log.i("TAG", "displayMealDetails: "+meal.getStrArea());
+
         placeholder.setText(meal.strInstructions);
+        Log.i("TAG", "displayMealDetails: "+meal.strInstructions);
+
         Glide.with(requireContext())
                 .load(meal.getStrMealThumb())
                 .transition(DrawableTransitionOptions.withCrossFade())
@@ -96,7 +101,6 @@ public class MealDetailFragment extends Fragment implements MealDetailContractVi
 
     @Override
     public void addProductToFav(Meal meal) {
-
             presenter.addProductToFavorite(meal);
     }
 

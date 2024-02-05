@@ -1,8 +1,11 @@
 package com.example.foodplanner.ui.search.presenter;
 
 import com.example.foodplanner.model.repositry.RepositoryInterface;
+import com.example.foodplanner.model.response.CategoryResponse;
 import com.example.foodplanner.model.response.CuisineResponse;
 
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.disposables.Disposable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -15,29 +18,26 @@ public class CuisinePresenterImp implements CuisinePresenter{
         this.cuisineView = cuisineView;
     }
 
+
     @Override
-    public void getCuisines() {
-        cuisineRepository.getCuisine(new Callback<CuisineResponse>() {
+    public Disposable getCuisines() {
+        return cuisineRepository.getCuisine(new io.reactivex.rxjava3.core.SingleObserver<CuisineResponse>() {
             @Override
-            public void onResponse(Call<CuisineResponse> call, Response<CuisineResponse> response) {
-                if (response.isSuccessful())
-                {
-                    if(response.body()!=null)
-                    {
-                        cuisineView.showCuisine(response.body().getMeals());
-                    }
-                }
-                else
-                {
-                    cuisineView.showError("Failed to fetch Cuisines ");
-                }
+            public void onSubscribe(@NonNull Disposable d) {
 
             }
 
             @Override
-            public void onFailure(Call<CuisineResponse> call, Throwable t) {
-                cuisineView.showError(t.getMessage());
-
+            public void onSuccess(@NonNull CuisineResponse cuisineResponse) {
+                if (cuisineResponse != null) {
+                    cuisineView.showCuisine(cuisineResponse.getMeals());
+                } else {
+                    cuisineView.showError("Failed to fetch categories");
+                }
+            }
+            @Override
+            public void onError(@NonNull Throwable e) {
+                cuisineView.showError(e.getMessage());
             }
         });
     }

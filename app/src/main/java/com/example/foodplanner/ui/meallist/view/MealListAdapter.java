@@ -11,20 +11,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.foodplanner.R;
-import com.example.foodplanner.model.data.MealPreview;
+import com.example.foodplanner.model.data.Meal;
 
 import java.util.ArrayList;
 
 import io.reactivex.rxjava3.annotations.NonNull;
 
 public class MealListAdapter extends RecyclerView.Adapter<MealListAdapter.ViewHolder> {
-    private ArrayList<MealPreview> mealPreviews;
+    private ArrayList<Meal> mealPreviews;
+    private OnItemClickListener clickListener;
+    public void setClickListener(OnItemClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
 
     public MealListAdapter() {
         mealPreviews = new ArrayList<>();
     }
 
-    public void setMealPreviews(ArrayList<MealPreview> mealPreviews) {
+    public void setMealPreviews(ArrayList<Meal> mealPreviews) {
         this.mealPreviews = mealPreviews;
     }
 
@@ -37,13 +41,17 @@ public class MealListAdapter extends RecyclerView.Adapter<MealListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        MealPreview mealPreview = mealPreviews.get(position);
-
+        Meal mealPreview = mealPreviews.get(position);
         holder.mealNameTextView.setText(mealPreview.getStrMeal());
         Glide.with(holder.itemView.getContext())
                 .load(mealPreview.getStrMealThumb())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.mealImage);
+        holder.itemView.setOnClickListener(v -> {
+            if (clickListener != null) {
+                clickListener.onClickCategory(mealPreview);
+            }
+        });
     }
 
     @Override

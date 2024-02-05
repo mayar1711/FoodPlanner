@@ -12,7 +12,7 @@ import retrofit2.Callback;
 public interface RepositoryInterface {
     Disposable getCategories(io.reactivex.rxjava3.core.SingleObserver<CategoryResponse> observer);
 
-    void getCuisine(Callback<CuisineResponse> callback);
+    Disposable getCuisine(io.reactivex.rxjava3.core.SingleObserver<CuisineResponse> observer);
 
     void getMealList(Callback<MealResponse> callback);
     Single<MealPreviewResponse> getMealsByCategory(String category);

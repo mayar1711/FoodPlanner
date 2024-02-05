@@ -13,7 +13,7 @@ public interface ApiService {
     @GET("categories.php")
     Single<CategoryResponse> getCategories();
     @GET("list.php?a=list")
-    Call<CuisineResponse> getCuisine();
+    Single<CuisineResponse> getCuisine();
     @GET("random.php")
     Call<MealResponse> getMeals();
     @GET("filter.php")

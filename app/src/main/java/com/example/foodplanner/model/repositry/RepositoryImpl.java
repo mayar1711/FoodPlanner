@@ -58,32 +58,12 @@ public class RepositoryImpl implements RepositoryInterface {
                 .subscribe(observer::onSuccess, observer::onError);
     }
 
-
-
-
     @Override
-    public void getCuisine(Callback<CuisineResponse> callback) {
-        Call<CuisineResponse> call = apiService.getCuisine();
-        call.enqueue(new Callback<CuisineResponse>() {
-            @Override
-            public void onResponse(Call<CuisineResponse> call, Response<CuisineResponse> response) {
-                if (response.isSuccessful()) {
-                    if (response.body() != null) {
-                        callback.onResponse(call, Response.success(response.body()));
-                        Log.i(TAG, "isSuccessful: " + response.body());
-                    }
-                } else {
-                    callback.onFailure(call, new Throwable("Failed to fetch Cuisine"));
-                    Log.i(TAG, "not: ");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<CuisineResponse> call, Throwable t) {
-                callback.onFailure(call, t);
-                Log.i(TAG, "onFailure: ");
-            }
-        });
+    public Disposable getCuisine(SingleObserver<CuisineResponse> observer) {
+        return apiService.getCuisine()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer::onSuccess, observer::onError);
     }
 
 

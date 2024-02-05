@@ -42,7 +42,11 @@
         <argument
             android:name="meals"
             app:argType="com.example.foodplanner.model.data.Meal" />
-    </fragment>
+
+        <argument
+            android:name="meal"
+            app:argType="com.example.foodplanner.model.data.Meal" />
+         </fragment>
     <fragment
         android:id="@+id/categoryList"
         android:name="com.example.foodplanner.ui.meallist.view.CategoryList"
@@ -51,5 +55,8 @@
         <argument
             android:name="name"
             app:argType="com.example.foodplanner.model.data.Category" />
+        <action
+            android:id="@+id/action_categoryList_to_mealDetailFragment"
+            app:destination="@id/mealDetailFragment" />
     </fragment>
 </navigation>
