@@ -1,4 +1,4 @@
-package com.example.foodplanner.ui.meallist.mealbyid;
+package com.example.foodplanner.ui.plane;
 
 import android.os.Bundle;
 
@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.foodplanner.R;
 
-public class MealById extends Fragment {
+public class PlaneFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -20,7 +20,9 @@ public class MealById extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_meal_by_id, container, false);
+
+        View view= inflater.inflate(R.layout.fragment_plane, container, false);
+
+        return view;
     }
 }

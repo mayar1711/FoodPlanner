@@ -18,4 +18,5 @@ public interface RepositoryInterface {
     Single<MealResponse> getMealsByCuisine(String cuisine);
     Single<MealResponse> getMealByIngredient(String ingredient);
     Single<MealResponse> getMealById(String id);
+    Single<MealResponse> getMealByName(String name);
 }

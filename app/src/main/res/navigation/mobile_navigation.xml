@@ -21,7 +21,7 @@
     <fragment
         android:id="@+id/navigation_favorite"
         android:name="com.example.foodplanner.ui.favorite.view.FavoriteFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_notifications"
         tools:layout="@layout/fragment_favorite" >
         <action
             android:id="@+id/action_navigation_favorite_to_mealDetailFragment"
@@ -31,7 +31,7 @@
     <fragment
         android:id="@+id/navigation_search"
         android:name="com.example.foodplanner.ui.search.SearchFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_search" >
         <action
             android:id="@+id/action_navigation_search_to_searchByNameFragment"
@@ -66,12 +66,12 @@
             android:name="name"
             app:argType="com.example.foodplanner.model.data.Category" />
         <action
-            android:id="@+id/action_categoryList_to_mealDetailFragment"
-            app:destination="@id/mealDetailFragment" />
+            android:id="@+id/action_categoryList_to_mealById"
+            app:destination="@id/mealById" />
     </fragment>
     <fragment
         android:id="@+id/searchByNameFragment"
-        android:name="com.example.foodplanner.ui.searchbyname.SearchByNameFragment"
+        android:name="com.example.foodplanner.ui.searchbyname.view.SearchByNameFragment"
         android:label="SearchByNameFragment" />
     <fragment
         android:id="@+id/getMealByCuisineFragment"
@@ -85,4 +85,17 @@
         android:id="@+id/mealByIngradient"
         android:name="com.example.foodplanner.ui.meallist.ingredient.view.MealByIngradient"
         android:label="MealByIngradient" />
+    <fragment
+        android:id="@+id/mealById"
+        android:name="com.example.foodplanner.ui.meallist.mealbyid.view.MealById"
+        android:label="MealById" >
+        <argument
+            android:name="allmeal"
+            app:argType="com.example.foodplanner.model.data.Meal" />
+    </fragment>
+    <fragment
+        android:id="@+id/planeFragment"
+        android:name="com.example.foodplanner.ui.plane.PlaneFragment"
+        android:label="Plane"
+        tools:layout="@layout/fragment_plane" />
 </navigation>

@@ -32,6 +32,7 @@
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        tools:listitem="@layout/search_iteam"
         app:layout_constraintTop_toBottomOf="@+id/searchByName_editText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

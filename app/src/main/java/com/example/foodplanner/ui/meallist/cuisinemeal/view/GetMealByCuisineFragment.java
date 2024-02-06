@@ -1,21 +1,17 @@
 package com.example.foodplanner.ui.meallist.cuisinemeal.view;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodplanner.R;
-import com.example.foodplanner.model.data.Category;
 import com.example.foodplanner.model.data.Cuisine;
 import com.example.foodplanner.model.data.Meal;
 import com.example.foodplanner.model.network.ApiClient;
@@ -35,13 +31,13 @@ public class GetMealByCuisineFragment extends Fragment implements CuisineListVie
         super.onCreate(savedInstanceState);
         cuisineAdapter=new CuisineAdapter();
         presenter=new CuisinePresenterImp(new RepositoryImpl(ApiClient.getApiService()), this);
-        Bundle bundle = getArguments();
+       /* Bundle bundle = getArguments();
         if (bundle != null && bundle.containsKey("cuisine")) {
             Meal meal = (Meal) bundle.getSerializable("cuisine");
             if (meal != null) {
                 String mealName = meal.getIdMeal();
             }
-        }
+        }*/
 
     }
 

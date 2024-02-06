@@ -13,7 +13,12 @@
 
     <item
         android:id="@+id/navigation_search"
-        android:icon="@drawable/breakfast"
+        android:icon="@drawable/baseline_search_24"
         android:title="@string/title_dashboard" />
+    <item
+        android:id="@+id/planeFragment"
+        android:icon="@drawable/baseline_calendar_today_48"
+        android:title="@string/title_week_plan"
+        />
 
 </menu>

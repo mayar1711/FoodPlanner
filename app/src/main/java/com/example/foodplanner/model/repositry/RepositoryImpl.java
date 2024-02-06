@@ -74,4 +74,9 @@ public class RepositoryImpl implements RepositoryInterface {
         return apiService.getMealById(id);
     }
 
+    @Override
+    public Single<MealResponse> getMealByName(String name) {
+        return apiService.searchByName(name);
+    }
+
 }

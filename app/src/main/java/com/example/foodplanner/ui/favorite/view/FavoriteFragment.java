@@ -58,7 +58,6 @@ public class FavoriteFragment extends Fragment implements FavMealView{
         View view= inflater.inflate(R.layout.fragment_favorite, container, false);
         return view;
     }
-
     @Override
     public void deleteFavProduct(Meal meal) {
         favMeal.deleteFavoriteProduct(meal);
