@@ -1,4 +1,4 @@
-package com.example.foodplanner.ui.search.presenter;
+package com.example.foodplanner.ui.search.cuisine.presenter;
 
 import io.reactivex.rxjava3.disposables.Disposable;
 

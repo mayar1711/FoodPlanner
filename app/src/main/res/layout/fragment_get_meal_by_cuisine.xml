@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.meallist.Categorie.view.CategoryList">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_meal_list"
+        android:id="@+id/recycler_cuisine_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
@@ -16,5 +16,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="@layout/catigorie_item"/>
+        tools:listitem="@layout/cuisine_item_list"/>
 </FrameLayout>

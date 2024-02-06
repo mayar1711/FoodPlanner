@@ -1,4 +1,4 @@
-package com.example.foodplanner.ui.meallist.view;
+package com.example.foodplanner.ui.meallist.Categorie.view;
 
 import com.example.foodplanner.model.data.Meal;
 

@@ -5,7 +5,6 @@ import java.util.List;
 
 public class CuisineResponse {
     private List<Cuisine> meals;
-
     public List<Cuisine> getMeals() {
         return meals;
     }

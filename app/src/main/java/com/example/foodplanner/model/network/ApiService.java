@@ -2,6 +2,7 @@ package com.example.foodplanner.model.network;
 
 import com.example.foodplanner.model.response.CategoryResponse;
 import com.example.foodplanner.model.response.CuisineResponse;
+import com.example.foodplanner.model.response.IngredientResponse;
 import com.example.foodplanner.model.response.MealPreviewResponse;
 import com.example.foodplanner.model.response.MealResponse;
 import io.reactivex.rxjava3.core.Single;
@@ -16,10 +17,17 @@ public interface ApiService {
     Single<CuisineResponse> getCuisine();
     @GET("random.php")
     Single<MealResponse> getMeals();
+    @GET("list.php?i=list")
+    Single<IngredientResponse> getIngredients();
     @GET("filter.php")
-    public Single<MealPreviewResponse> getMealsByIngredient(@Query("i") String ingredient);
+    public Single<MealResponse> getMealsByIngredient(@Query("i") String ingredient);
     @GET("filter.php")
-    public Single<MealPreviewResponse> getMealsByCategory(@Query("c") String category);
+    public Single<MealResponse> getMealsByCategory(@Query("c") String category);
     @GET("filter.php")
-    public Single<MealPreviewResponse> getMealsByCuisine(@Query("a") String cuisine);
+    public Single<MealResponse> getMealsByCuisine(@Query("a") String cuisine);
+    @GET("search.php")
+    public Single<MealResponse>searchByName(@Query("s") String mealName);
+    @GET("lookup.php")
+    public Single<MealResponse> getMealById(@Query("i") String id);
+
 }

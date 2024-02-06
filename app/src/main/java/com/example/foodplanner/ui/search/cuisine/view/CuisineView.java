@@ -1,4 +1,4 @@
-package com.example.foodplanner.ui.search.presenter;
+package com.example.foodplanner.ui.search.cuisine.view;
 
 import com.example.foodplanner.model.data.Cuisine;
 

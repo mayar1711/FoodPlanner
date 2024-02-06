@@ -3,12 +3,8 @@ package com.example.foodplanner.ui.home.presinter;
 import com.example.foodplanner.model.repositry.RepositoryInterface;
 import com.example.foodplanner.model.response.MealResponse;
 import com.example.foodplanner.ui.home.view.MealView;
-
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.disposables.Disposable;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MealPresenterImpl implements MealPresenter {
     private final RepositoryInterface repository;

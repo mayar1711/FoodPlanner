@@ -1,10 +1,13 @@
-package com.example.foodplanner.ui.meallist.presenter;
+package com.example.foodplanner.ui.meallist.Categorie.presenter;
 
 import android.util.Log;
 
+import com.example.foodplanner.model.data.Meal;
 import com.example.foodplanner.model.repositry.RepositoryInterface;
-import com.example.foodplanner.model.response.MealPreviewResponse;
-import com.example.foodplanner.ui.meallist.view.MealListView;
+import com.example.foodplanner.model.response.MealResponse;
+import com.example.foodplanner.ui.meallist.Categorie.view.MealListView;
+
+import java.util.ArrayList;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.SingleObserver;
@@ -25,17 +28,17 @@ public class MealListPresenter implements PresenterInterface {
         repository.getMealsByCategory(category)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<MealPreviewResponse>() {
+                .subscribe(new SingleObserver<MealResponse>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        // Handle subscription
+
                     }
                     @Override
-                    public void onSuccess(MealPreviewResponse response) {
+                    public void onSuccess(MealResponse response) {
                         if (response != null) {
                             Log.d("MealListPresenter", "API Response: " + response.toString());
-                            if (response.mealPreviews != null) {
-                                view.showMealList(response.mealPreviews);
+                            if (response.getMeals() != null) {
+                                view.showMealList((ArrayList<Meal>) response.getMeals());
                             } else {
                                 view.showError("Response contains null data");
                             }

@@ -1,4 +1,4 @@
-package com.example.foodplanner.ui.meallist.view;
+package com.example.foodplanner.ui.meallist.Categorie.view;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
@@ -18,7 +18,7 @@ import com.example.foodplanner.R;
 import com.example.foodplanner.model.data.Meal;
 import com.example.foodplanner.model.network.ApiClient;
 import com.example.foodplanner.model.repositry.RepositoryImpl;
-import com.example.foodplanner.ui.meallist.presenter.MealListPresenter;
+import com.example.foodplanner.ui.meallist.Categorie.presenter.MealListPresenter;
 
 public class CategoryList extends Fragment  implements MealListView ,OnItemClickListener{
     private RecyclerView recyclerView;

@@ -14,7 +14,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.foodplanner.R;
@@ -31,6 +30,8 @@ import com.example.foodplanner.ui.home.presinter.MealPresenterImpl;
 import java.io.Serializable;
 import java.util.List;
 
+import io.reactivex.rxjava3.disposables.Disposable;
+
 public class HomeFragment extends Fragment implements OnCategoryClickListener, CategoryAdapter.CategoryView, MealView {
 
     private RecyclerView recyclerView;
@@ -43,6 +44,8 @@ public class HomeFragment extends Fragment implements OnCategoryClickListener, C
     private ImageView imageView;
     private List<Meal> meals;
     private CardView mealRandom ;
+    private Disposable randomMeaDisposable;
+    private Disposable categoryDisposable;
 
 
     private static final String TAG ="home ";
@@ -137,4 +140,31 @@ public class HomeFragment extends Fragment implements OnCategoryClickListener, C
 
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (randomMeaDisposable != null && !randomMeaDisposable.isDisposed()) {
+            randomMeaDisposable.dispose();
+        }
+
+        if (categoryDisposable != null && !categoryDisposable.isDisposed()) {
+            categoryDisposable.dispose();
+        }
+
+        // Release references to views
+        recyclerView = null;
+        meal = null;
+        imageView = null;
+        mealRandom = null;
+
+        // Set the adapters to null to release references
+        if (categoryAdapter != null) {
+            categoryAdapter.setClickListener(null);
+            categoryAdapter = null;
+        }
+
+        if (presenter != null) {
+            presenter = null;
+        }
+    }
 }
