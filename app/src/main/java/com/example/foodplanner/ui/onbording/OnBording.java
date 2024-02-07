@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.example.foodplanner.R;
-import com.example.foodplanner.ui.MainActivity;
+import com.example.foodplanner.ui.authentication.MainActivity;
 
 public class OnBording extends AppCompatActivity {
 

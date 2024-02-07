@@ -14,7 +14,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.foodplanner.R;
@@ -25,14 +24,15 @@ import com.example.foodplanner.model.network.ApiService;
 import com.example.foodplanner.model.repositry.RepositoryImpl;
 import com.example.foodplanner.ui.home.presinter.CategoryPresenter;
 import com.example.foodplanner.ui.home.presinter.CategoryPresenterImpl;
-import com.example.foodplanner.ui.home.presinter.CategoryView;
 import com.example.foodplanner.ui.home.presinter.MealPresenter;
 import com.example.foodplanner.ui.home.presinter.MealPresenterImpl;
-import com.example.foodplanner.ui.home.presinter.MealView;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class HomeFragment extends Fragment implements OnCategoryClickListener, CategoryView , MealView {
+import io.reactivex.rxjava3.disposables.Disposable;
+
+public class HomeFragment extends Fragment implements OnCategoryClickListener, CategoryAdapter.CategoryView, MealView {
 
     private RecyclerView recyclerView;
 
@@ -44,12 +44,24 @@ public class HomeFragment extends Fragment implements OnCategoryClickListener, C
     private ImageView imageView;
     private List<Meal> meals;
     private CardView mealRandom ;
+    private Disposable randomMeaDisposable;
+    private Disposable categoryDisposable;
 
 
     private static final String TAG ="home ";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        if (bundle != null && bundle.containsKey("category")) {
+            Category category = (Category) bundle.getSerializable("category");
+
+            // Now you can use the 'category' object as needed
+            if (category != null) {
+                String categoryName = category.getStrCategory();
+                // Do something with the category name
+            }
+        }
     }
 
     @Override
@@ -66,6 +78,7 @@ public class HomeFragment extends Fragment implements OnCategoryClickListener, C
         imageView=view.findViewById(R.id.imageViewOfTheDay);
         mealRandom=view.findViewById(R.id.cardViewRandomMeal);
         categoryAdapter = new CategoryAdapter();
+        categoryAdapter.setClickListener(this);
         LinearLayoutManager linearLayoutManager1 =new LinearLayoutManager(requireActivity());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -79,9 +92,13 @@ public class HomeFragment extends Fragment implements OnCategoryClickListener, C
 
     }
     @Override
-    public void onClickCategory(String id) {
-
+    public void onClickCategory(Category category) {
+        Toast.makeText(requireActivity(), "Clicked category: " + category.getStrCategory(), Toast.LENGTH_SHORT).show();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("category", (Serializable) category);
+        Navigation.findNavController(requireView()).navigate(R.id.action_navigation_home_to_categoryList, bundle);
     }
+
 
     @Override
     public void showCategories(List<Category> categories) {
@@ -117,12 +134,37 @@ public class HomeFragment extends Fragment implements OnCategoryClickListener, C
 
         }
     }
-
-
     @Override
     public void displayError(String message) {
         Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
 
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (randomMeaDisposable != null && !randomMeaDisposable.isDisposed()) {
+            randomMeaDisposable.dispose();
+        }
+
+        if (categoryDisposable != null && !categoryDisposable.isDisposed()) {
+            categoryDisposable.dispose();
+        }
+
+        // Release references to views
+        recyclerView = null;
+        meal = null;
+        imageView = null;
+        mealRandom = null;
+
+        // Set the adapters to null to release references
+        if (categoryAdapter != null) {
+            categoryAdapter.setClickListener(null);
+            categoryAdapter = null;
+        }
+
+        if (presenter != null) {
+            presenter = null;
+        }
+    }
 }

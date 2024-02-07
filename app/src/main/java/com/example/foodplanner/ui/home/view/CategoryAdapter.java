@@ -5,10 +5,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.foodplanner.R;
@@ -19,7 +17,11 @@ import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
     private List<Category> categories;
+    private OnCategoryClickListener clickListener;
 
+    public void setClickListener(OnCategoryClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
     public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
@@ -39,7 +41,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                 .load(category.getStrCategoryThumb())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.categoryImage);
-
+        holder.itemView.setOnClickListener(v -> {
+            if (clickListener != null) {
+                clickListener.onClickCategory(category);
+            }
+        });
     }
 
     @Override
@@ -55,6 +61,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             super(itemView);
             categoryImage = itemView.findViewById(R.id.imageView);
             categoryName = itemView.findViewById(R.id.textView3);
+
         }
+    }
+
+    public static interface CategoryView {
+        void showCategories(List<Category> categories);
+        void showError(String error);
     }
 }

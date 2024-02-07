@@ -1,11 +1,10 @@
 package com.example.foodplanner.ui.home.presinter;
 
-import android.util.Log;
 import com.example.foodplanner.model.repositry.RepositoryInterface;
 import com.example.foodplanner.model.response.MealResponse;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import com.example.foodplanner.ui.home.view.MealView;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 public class MealPresenterImpl implements MealPresenter {
     private final RepositoryInterface repository;
@@ -18,22 +17,26 @@ public class MealPresenterImpl implements MealPresenter {
     }
 
     @Override
-    public void getMealList() {
-        repository.getMealList(new Callback<MealResponse>() {
+    public Disposable getMealList() {
+        return repository.getMealList(new io.reactivex.rxjava3.core.SingleObserver<MealResponse>() {
             @Override
-            public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
-                if (response.isSuccessful()) {
-                    if (response.body() != null) {
-                          view.displayMeals(response.body().getMeals());
-                    } else {
-                        view.displayError("Failed to fetch meals");
-                    }
-                }
-            }
-            @Override
-            public void onFailure(Call<MealResponse> call, Throwable t) {
-                view.displayError(t.getMessage());
+            public void onSubscribe(@NonNull Disposable d) {
 
+            }
+
+            @Override
+            public void onSuccess(@NonNull MealResponse mealResponse) {
+                  if(mealResponse!=null)
+                  {
+                      view.displayMeals(mealResponse.getMeals());
+                  }
+                  else
+                      view.displayError("Failed to fetch Meal");
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                 view.displayError(e.getMessage());
             }
         });
     }

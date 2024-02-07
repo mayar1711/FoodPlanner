@@ -2,14 +2,21 @@ package com.example.foodplanner.model.repositry;
 
 import com.example.foodplanner.model.response.CategoryResponse;
 import com.example.foodplanner.model.response.CuisineResponse;
+import com.example.foodplanner.model.response.IngredientResponse;
 import com.example.foodplanner.model.response.MealResponse;
 
-import retrofit2.Callback;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.core.SingleObserver;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 public interface RepositoryInterface {
-    void getCategories(Callback<CategoryResponse> callback);
-    void getCuisine(Callback<CuisineResponse> callback);
-
-    void getMealList(Callback<MealResponse> callback);
-
+    Disposable getCategories(SingleObserver<CategoryResponse> observer);
+    Disposable getCuisine(SingleObserver<CuisineResponse> observer);
+    Disposable getMealList(SingleObserver<MealResponse> observer);
+    Disposable getIngredient(SingleObserver<IngredientResponse> observer);
+    Single<MealResponse> getMealsByCategory(String category);
+    Single<MealResponse> getMealsByCuisine(String cuisine);
+    Single<MealResponse> getMealByIngredient(String ingredient);
+    Single<MealResponse> getMealById(String id);
+    Single<MealResponse> getMealByName(String name);
 }

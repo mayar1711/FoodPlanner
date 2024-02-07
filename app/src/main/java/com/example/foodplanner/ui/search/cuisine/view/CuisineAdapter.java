@@ -1,27 +1,27 @@
-package com.example.foodplanner.ui.search.view;
+package com.example.foodplanner.ui.search.cuisine.view;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.foodplanner.R;
-import com.example.foodplanner.model.data.Category;
 import com.example.foodplanner.model.data.Cuisine;
-import com.example.foodplanner.ui.home.view.CategoryAdapter;
 
 import java.util.List;
 
 public class CuisineAdapter  extends RecyclerView.Adapter<CuisineAdapter.ViewHolder>{
     private List<Cuisine> cuisineList;
+    private OnCuisineClicked cuisineClicked;
+
+    public void setCuisineClicked(OnCuisineClicked cuisineClicked) {
+        this.cuisineClicked = cuisineClicked;
+    }
+
     public void setCuisineList(List<Cuisine> cuisineList)
     {
         this.cuisineList=cuisineList;
@@ -37,6 +37,11 @@ public class CuisineAdapter  extends RecyclerView.Adapter<CuisineAdapter.ViewHol
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Cuisine cuisine=cuisineList.get(position);
         holder.cuisineName.setText(cuisine.getStrArea());
+        holder.itemView.setOnClickListener(v -> {
+            if (cuisineClicked != null) {
+                cuisineClicked.onCuisineClicked(cuisine);
+            }
+        });
     }
 
 

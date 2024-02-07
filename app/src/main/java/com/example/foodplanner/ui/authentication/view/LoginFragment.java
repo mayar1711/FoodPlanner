@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.foodplanner.R;
 import com.example.foodplanner.ui.HomeActivity;
-import com.example.foodplanner.ui.MainActivity;
 import com.example.foodplanner.ui.authentication.Controller.AuthenticationController;
 import com.google.android.material.textfield.TextInputEditText;
 

@@ -2,15 +2,13 @@ package com.example.foodplanner.ui.splash;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 
 import com.example.foodplanner.R;
-import com.example.foodplanner.ui.HomeActivity;
-import com.example.foodplanner.ui.MainActivity;
+import com.example.foodplanner.ui.authentication.MainActivity;
 import com.example.foodplanner.ui.onbording.OnBording;
 
 public class SplashScreen extends AppCompatActivity {

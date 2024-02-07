@@ -1,4 +1,4 @@
-package com.example.foodplanner.ui;
+package com.example.foodplanner.ui.authentication;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;

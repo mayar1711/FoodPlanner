@@ -2,15 +2,15 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.FoodPlanner" parent="Theme.Material3.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/red</item>
+        <item name="colorPrimary">@color/active</item>
         <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/red</item>
-        <item name="colorSecondaryVariant">@color/red</item>
+        <item name="colorSecondary">@color/active</item>
+        <item name="colorSecondaryVariant">@color/active</item>
         <item name="colorOnSecondary">@color/black_400</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@color/active</item>
         <!-- Customize your theme here. -->
         <item name="windowActionBarOverlay">true</item>
     </style>
@@ -29,7 +29,7 @@
         <item name="boxStrokeWidth">1dp</item>
         <item name="boxBackgroundMode">outline</item>
         <item name="boxBackgroundColor">@color/white</item>
-        <item name="boxStrokeColor">@color/red</item>
+        <item name="boxStrokeColor">@color/active</item>
     </style>
     <style name="editTextStyle">
         <item name="android:textSize">16sp</item>
@@ -74,8 +74,8 @@
     </style>
 
     <style name="TabLayoutStyle">
-        <item name="tabIndicatorColor">@color/red</item>
-        <item name="tabTextColor">@color/red</item>
+        <item name="tabIndicatorColor">@color/active</item>
+        <item name="tabTextColor">@color/active</item>
         <item name="tabSelectedTextColor">@color/white</item>
         <item name="tabMode">scrollable</item>
         <item name="android:background">@android:color/transparent</item>
