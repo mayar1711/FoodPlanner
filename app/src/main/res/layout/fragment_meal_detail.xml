@@ -115,7 +115,7 @@
             tools:layout_editor_absoluteY="364dp" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewIngredientsItemDetails"
+            android:id="@+id/rvIngredientsItemDetails"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -124,7 +124,6 @@
             app:layout_constraintStart_toStartOf="@+id/cardView2"
             app:layout_constraintTop_toBottomOf="@+id/textView24"
             tools:itemCount="10"
-            tools:listitem="@layout/meal_detail"
             tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:orientation="horizontal" />
 
@@ -136,7 +135,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/procedure"
             app:layout_constraintStart_toStartOf="@+id/textView24"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerViewIngredientsItemDetails" />
+            app:layout_constraintTop_toBottomOf="@+id/rvIngredientsItemDetails" />
 
         <TextView
             android:id="@+id/textViewProcedures"
