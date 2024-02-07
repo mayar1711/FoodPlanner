@@ -69,7 +69,6 @@ public class CategoryList extends Fragment  implements MealListView ,OnItemClick
     public void showError(String error) {
         Toast.makeText(requireContext(), "Error: " + error, Toast.LENGTH_SHORT).show();
     }
-
     @Override
     public void onClickCategory(Meal meal) {
         Toast.makeText(requireActivity(), "Clicked category: " + meal.getStrMeal(), Toast.LENGTH_SHORT).show();

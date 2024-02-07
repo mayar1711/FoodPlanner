@@ -16,6 +16,12 @@ import java.util.ArrayList;
 
 public class CuisineAdapter extends RecyclerView.Adapter<CuisineAdapter.ViewHolder>{
     private ArrayList<Meal> mealPreviews;
+    private OnItemClicked clicked;
+
+    public void setClicked(OnItemClicked clicked) {
+        this.clicked = clicked;
+    }
+
     public CuisineAdapter(){
         mealPreviews = new ArrayList<>();
 
@@ -38,6 +44,11 @@ public class CuisineAdapter extends RecyclerView.Adapter<CuisineAdapter.ViewHold
                 .load(mealPreview.getStrMealThumb())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.mealImage);
+        holder.itemView.setOnClickListener(v -> {
+            if (clicked != null) {
+                clicked.onClickCuisine(mealPreview);
+            }
+        });
     }
     @Override
     public int getItemCount() {

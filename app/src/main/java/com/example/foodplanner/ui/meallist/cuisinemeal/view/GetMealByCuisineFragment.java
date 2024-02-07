@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodplanner.R;
@@ -19,9 +20,10 @@ import com.example.foodplanner.model.repositry.RepositoryImpl;
 import com.example.foodplanner.ui.meallist.cuisinemeal.presenter.CuisinePresenter;
 import com.example.foodplanner.ui.meallist.cuisinemeal.presenter.CuisinePresenterImp;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class GetMealByCuisineFragment extends Fragment implements CuisineListView {
+public class GetMealByCuisineFragment extends Fragment implements CuisineListView , OnItemClicked {
     private RecyclerView recyclerView;
     private CuisineAdapter cuisineAdapter;
     private CuisinePresenter presenter;
@@ -50,6 +52,7 @@ public class GetMealByCuisineFragment extends Fragment implements CuisineListVie
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(cuisineAdapter);
+        cuisineAdapter.setClicked(this);
         Cuisine cuisine=(Cuisine) getArguments().getSerializable ("cuisine");
         Bundle bundle = getArguments();
         if (bundle != null && bundle.containsKey("cuisine")) {
@@ -76,4 +79,11 @@ public class GetMealByCuisineFragment extends Fragment implements CuisineListVie
         Toast.makeText(requireContext(), "Error: " + error, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onClickCuisine(Meal meal) {
+        Toast.makeText(requireActivity(), "Clicked category: " + meal.getStrMeal(), Toast.LENGTH_SHORT).show();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("meal", (Serializable) meal);
+        Navigation.findNavController(requireView()).navigate(R.id.action_getMealByCuisineFragment_to_mealById,bundle);
+    }
 }

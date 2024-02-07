@@ -25,7 +25,7 @@ public class FavoriteFragment extends Fragment implements FavMealView{
     private FavMeal favMeal;
     private FavoriteMealAdapter adapter;
     public FavoriteFragment() {
-        // Required empty public constructor
+
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,11 +50,9 @@ public class FavoriteFragment extends Fragment implements FavMealView{
         favMeal.getProducts();
 
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_favorite, container, false);
         return view;
     }
@@ -70,7 +68,6 @@ public class FavoriteFragment extends Fragment implements FavMealView{
         adapter.notifyDataSetChanged();
         Log.i("TAG", "onGetAllFavoriteProducts: " + favoriteMeal.size());
     }
-
 
     @Override
     public void onGetAllFavoriteProductsError(String errorMessage) {

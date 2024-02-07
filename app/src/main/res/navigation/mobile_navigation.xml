@@ -72,7 +72,11 @@
     <fragment
         android:id="@+id/searchByNameFragment"
         android:name="com.example.foodplanner.ui.searchbyname.view.SearchByNameFragment"
-        android:label="SearchByNameFragment" />
+        android:label="SearchByNameFragment" >
+        <action
+            android:id="@+id/action_searchByNameFragment_to_mealById"
+            app:destination="@id/mealById" />
+    </fragment>
     <fragment
         android:id="@+id/getMealByCuisineFragment"
         android:name="com.example.foodplanner.ui.meallist.cuisinemeal.view.GetMealByCuisineFragment"
@@ -80,11 +84,18 @@
         <argument
             android:name="item"
             app:argType="com.example.foodplanner.model.data.Cuisine" />
+        <action
+            android:id="@+id/action_getMealByCuisineFragment_to_mealById"
+            app:destination="@id/mealById" />
     </fragment>
     <fragment
         android:id="@+id/mealByIngradient"
         android:name="com.example.foodplanner.ui.meallist.ingredient.view.MealByIngradient"
-        android:label="MealByIngradient" />
+        android:label="MealByIngradient" >
+        <action
+            android:id="@+id/action_mealByIngradient_to_mealById"
+            app:destination="@id/mealById" />
+    </fragment>
     <fragment
         android:id="@+id/mealById"
         android:name="com.example.foodplanner.ui.meallist.mealbyid.view.MealById"

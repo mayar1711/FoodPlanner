@@ -10,7 +10,7 @@
         <item name="colorSecondaryVariant">@color/active</item>
         <item name="colorOnSecondary">@color/black_400</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@color/active</item>
         <!-- Customize your theme here. -->
         <item name="windowActionBarOverlay">true</item>
     </style>
