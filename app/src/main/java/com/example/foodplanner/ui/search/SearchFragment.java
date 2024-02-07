@@ -77,6 +77,7 @@ public class SearchFragment extends Fragment implements CuisineView, OnIngredien
         ingrediantRecyclerView.setAdapter(ingredientAdapter);
         ingredientPresenter=new IngredientPresenterImp(new RepositoryImpl(apiService),this);
         ingredientPresenter.getIngredient();
+        ingredientAdapter.setOnIngredientClick(this);
         recyclerView =view.findViewById(R.id.recycler_cuisine);
         cuisineAdapter=new CuisineAdapter();
         cuisineAdapter.setCuisineClicked(this);
@@ -118,6 +119,10 @@ public class SearchFragment extends Fragment implements CuisineView, OnIngredien
 
     @Override
     public void onIngredientClick(Ingredient ingredient) {
+        Toast.makeText(requireActivity(), "Clicked ingredient: " + ingredient.getStrIngredient(), Toast.LENGTH_SHORT).show();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("ingredient", (Serializable) ingredient);
+        Navigation.findNavController(requireView()).navigate(R.id.action_navigation_search_to_mealByIngradient, bundle);
 
     }
     @Override

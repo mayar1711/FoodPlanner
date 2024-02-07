@@ -95,6 +95,9 @@
         <action
             android:id="@+id/action_mealByIngradient_to_mealById"
             app:destination="@id/mealById" />
+        <argument
+            android:name="ingredient"
+            app:argType="com.example.foodplanner.model.data.Ingredient" />
     </fragment>
     <fragment
         android:id="@+id/mealById"

@@ -30,6 +30,7 @@ public class FavoriteFragment extends Fragment implements FavMealView{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        adapter = new FavoriteMealAdapter(new ArrayList<>());
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

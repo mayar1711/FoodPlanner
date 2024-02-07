@@ -30,6 +30,9 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
         mealPreviews = new ArrayList<>();
 
     }
+    public void setMealPreviews(ArrayList<Meal> mealPreviews) {
+        this.mealPreviews = mealPreviews;
+    }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

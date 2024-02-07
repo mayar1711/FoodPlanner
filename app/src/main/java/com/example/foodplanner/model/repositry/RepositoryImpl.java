@@ -1,12 +1,17 @@
 package com.example.foodplanner.model.repositry;
 
 import android.util.Log;
+
+import com.example.foodplanner.model.data.Ingredient;
 import com.example.foodplanner.model.network.ApiService;
 import com.example.foodplanner.model.response.CategoryResponse;
 import com.example.foodplanner.model.response.CuisineResponse;
 import com.example.foodplanner.model.response.IngredientResponse;
 import com.example.foodplanner.model.response.MealPreviewResponse;
 import com.example.foodplanner.model.response.MealResponse;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Single;
@@ -50,6 +55,12 @@ public class RepositoryImpl implements RepositoryInterface {
         return apiService.getIngredients()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .map(ingredientResponse -> {
+
+                    List<Ingredient> ingredients = ingredientResponse.getIngredients().stream().limit(30).collect(Collectors.toList());
+                    ingredientResponse.setIngredients(ingredients);
+                    return ingredientResponse;
+                })
                 .subscribe(observer::onSuccess, observer::onError);
     }
 
