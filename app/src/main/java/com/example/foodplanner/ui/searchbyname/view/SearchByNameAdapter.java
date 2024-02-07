@@ -19,6 +19,12 @@ import java.util.ArrayList;
 
 public class SearchByNameAdapter extends RecyclerView.Adapter<SearchByNameAdapter.ViewHolder>{
     private ArrayList<Meal> mealPreviews;
+    private OnMealClick click;
+
+    public void setClick(OnMealClick click) {
+        this.click = click;
+    }
+
     public SearchByNameAdapter(){
         mealPreviews = new ArrayList<>();
     }
@@ -41,6 +47,11 @@ public class SearchByNameAdapter extends RecyclerView.Adapter<SearchByNameAdapte
                 .load(mealPreview.getStrMealThumb())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.mealImage);
+        holder.itemView.setOnClickListener(v -> {
+            if (click != null) {
+                click.onClickMeal(mealPreview);
+            }
+        });
     }
 
     @Override

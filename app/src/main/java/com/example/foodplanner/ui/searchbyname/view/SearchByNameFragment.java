@@ -8,7 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,10 +22,11 @@ import com.example.foodplanner.model.repositry.RepositoryImpl;
 import com.example.foodplanner.ui.meallist.Categorie.view.MealListAdapter;
 import com.example.foodplanner.ui.searchbyname.presenter.SearchByNamePresenterImp;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchByNameFragment extends Fragment implements SearchByNameView {
+public class SearchByNameFragment extends Fragment implements SearchByNameView ,OnMealClick {
 
     private SearchByNamePresenterImp presenter;
     private RecyclerView recyclerView;
@@ -45,7 +49,7 @@ public class SearchByNameFragment extends Fragment implements SearchByNameView {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(adapter);
-
+        adapter.setClick(this);
         search = view.findViewById(R.id.searchByName_editText);
         search.addTextChangedListener(new TextWatcher() {
             @Override
@@ -75,5 +79,13 @@ public class SearchByNameFragment extends Fragment implements SearchByNameView {
     @Override
     public void displayError(String msg) {
 
+    }
+
+    @Override
+    public void onClickMeal(Meal meal) {
+        Toast.makeText(requireActivity(), "Clicked meal: " + meal.getStrMeal(), Toast.LENGTH_SHORT).show();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("meal", (Serializable) meal);
+        Navigation.findNavController(requireView()).navigate(R.id.action_searchByNameFragment_to_mealById,bundle);
     }
 }
