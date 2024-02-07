@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,10 +18,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.foodplanner.R;
 import com.example.foodplanner.model.data.Category;
+import com.example.foodplanner.model.data.GetArrayFromMeal;
 import com.example.foodplanner.model.data.Meal;
 import com.example.foodplanner.model.network.ApiClient;
 import com.example.foodplanner.model.repositry.RepositoryImpl;
 import com.example.foodplanner.ui.mealdetail.presinter.GetIdFromYoutubeUrl;
+import com.example.foodplanner.ui.mealdetail.view.MealIngredientsAdapter;
 import com.example.foodplanner.ui.meallist.mealbyid.presenter.MealByIdPresenter;
 import com.example.foodplanner.ui.meallist.mealbyid.presenter.MealByIdPresenterImp;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
@@ -38,6 +42,9 @@ public class MealById extends Fragment implements MealByIdView {
     private ImageView addToFav;
     private YouTubePlayerView player;
     private YouTubePlayer youTubePlayer;
+    private RecyclerView recyclerView;
+    private MealByIdIngredientsAdapter ingredientsAdapter;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,6 +57,7 @@ public class MealById extends Fragment implements MealByIdView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_meal_by_id, container, false);
+        ingredientsAdapter = new MealByIdIngredientsAdapter(new ArrayList<>());
         Meal meal=(Meal) getArguments().getSerializable ("meal");
         Bundle bundle = getArguments();
         if (bundle != null && bundle.containsKey("meal")) {
@@ -63,6 +71,12 @@ public class MealById extends Fragment implements MealByIdView {
         placeholder=view.findViewById(R.id.textViewProcedures);
         area=view.findViewById(R.id.textViewMealCountryItemDetails);
         mealImage=view.findViewById(R.id.mealImage);
+        recyclerView=view.findViewById(R.id.recyclerViewIngredientsItemDetails);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
+        linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        recyclerView.setAdapter(ingredientsAdapter);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
         player=view.findViewById(R.id.ytPlayer);
         player.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
@@ -86,6 +100,7 @@ public class MealById extends Fragment implements MealByIdView {
 
             placeholder.setText(meal.strInstructions);
             Log.i("TAG", "displayMealDetails: " + meal.strInstructions);
+            ingredientsAdapter.setList(GetArrayFromMeal.getArrayList(meal));
 
             Glide.with(requireContext())
                     .load(meal.getStrMealThumb())
