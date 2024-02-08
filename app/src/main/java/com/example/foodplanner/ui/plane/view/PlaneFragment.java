@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,14 +15,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.Toast;
-
 import com.example.foodplanner.R;
 import com.example.foodplanner.model.data.MealPlane;
 import com.example.foodplanner.model.repositry.MealRepoImp;
 import com.example.foodplanner.model.repositry.localrepo.MealLocalDatasourceImp;
 import com.example.foodplanner.ui.plane.presenter.MealPlanerPresenter;
 import com.example.foodplanner.ui.plane.presenter.MealPlanerPresenterImp;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,13 +41,6 @@ public class PlaneFragment extends Fragment implements PlaneView {
                              Bundle savedInstanceState) {
 
         View view= inflater.inflate(R.layout.fragment_plane, container, false);
-
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         presenter= MealPlanerPresenterImp.getInstance(
                 MealRepoImp.getInstance(
                         MealLocalDatasourceImp.getInstance(requireContext())
@@ -63,12 +53,25 @@ public class PlaneFragment extends Fragment implements PlaneView {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
         adapter.onDeleteClickListener = this::deletePlaneMeal;
-        presenter.getPlane();
+        presenter.getPlane(this);
         navigateToSearch=view.findViewById(R.id.addMeal_button_weekplan);
         navigateToSearch.setOnClickListener(v -> {
             Navigation.findNavController(requireView()).navigate(R.id.action_planeFragment_to_navigation_search
             );
         });
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
     }
 
     @Override

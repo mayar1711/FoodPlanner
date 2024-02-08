@@ -1,5 +1,6 @@
 package com.example.foodplanner.ui.favorite.view;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,7 @@ public class FavoriteMealAdapter extends RecyclerView.Adapter<FavoriteMealAdapte
 
     @Override
     public int getItemCount() {
+        Log.i("TAG", "getItemCount: "+meals.size());
         return meals.size();
     }
 
