@@ -17,7 +17,7 @@ import android.widget.CalendarView;
 import android.widget.Toast;
 import com.example.foodplanner.R;
 import com.example.foodplanner.model.data.MealPlane;
-import com.example.foodplanner.model.repositry.MealRepoImp;
+import com.example.foodplanner.model.repositry.localrepo.MealRepoImp;
 import com.example.foodplanner.model.repositry.localrepo.MealLocalDatasourceImp;
 import com.example.foodplanner.ui.plane.presenter.MealPlanerPresenter;
 import com.example.foodplanner.ui.plane.presenter.MealPlanerPresenterImp;

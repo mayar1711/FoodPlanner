@@ -21,7 +21,7 @@ import com.example.foodplanner.model.data.Category;
 import com.example.foodplanner.model.data.Meal;
 import com.example.foodplanner.model.network.ApiClient;
 import com.example.foodplanner.model.network.ApiService;
-import com.example.foodplanner.model.repositry.RepositoryImpl;
+import com.example.foodplanner.model.repositry.remoterepo.RepositoryImpl;
 import com.example.foodplanner.ui.home.presinter.CategoryPresenter;
 import com.example.foodplanner.ui.home.presinter.CategoryPresenterImpl;
 import com.example.foodplanner.ui.home.presinter.MealPresenter;

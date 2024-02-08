@@ -1,4 +1,4 @@
-package com.example.foodplanner.model.repositry;
+package com.example.foodplanner.model.repositry.localrepo;
 
 import com.example.foodplanner.model.data.Meal;
 import com.example.foodplanner.model.data.MealPlane;

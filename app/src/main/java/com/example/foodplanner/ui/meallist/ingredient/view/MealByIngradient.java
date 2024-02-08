@@ -14,14 +14,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.foodplanner.R;
-import com.example.foodplanner.model.data.Cuisine;
 import com.example.foodplanner.model.data.Ingredient;
 import com.example.foodplanner.model.data.Meal;
 import com.example.foodplanner.model.network.ApiClient;
-import com.example.foodplanner.model.repositry.RepositoryImpl;
-import com.example.foodplanner.ui.meallist.cuisinemeal.presenter.CuisinePresenter;
-import com.example.foodplanner.ui.meallist.cuisinemeal.presenter.CuisinePresenterImp;
-import com.example.foodplanner.ui.meallist.cuisinemeal.view.CuisineAdapter;
+import com.example.foodplanner.model.repositry.remoterepo.RepositoryImpl;
 import com.example.foodplanner.ui.meallist.ingredient.presenter.IngredientListPresenterImp;
 
 import java.io.Serializable;

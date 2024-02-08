@@ -3,8 +3,8 @@ package com.example.foodplanner.ui.meallist.mealbyid.presenter;
 import android.util.Log;
 import com.example.foodplanner.model.data.Meal;
 import com.example.foodplanner.model.data.MealPlane;
-import com.example.foodplanner.model.repositry.MealRepo;
-import com.example.foodplanner.model.repositry.RepositoryInterface;
+import com.example.foodplanner.model.repositry.localrepo.MealRepo;
+import com.example.foodplanner.model.repositry.remoterepo.RepositoryInterface;
 import com.example.foodplanner.model.response.MealResponse;
 import com.example.foodplanner.ui.meallist.mealbyid.view.MealByIdView;
 import io.reactivex.rxjava3.annotations.NonNull;
@@ -63,7 +63,11 @@ public class MealByIdPresenterImp implements MealByIdPresenter {
 
     @Override
     public void addMealPlane(MealPlane mealPlane) {
-
+        mealRepo.insertMealToPlane(mealPlane)
+                .subscribe(
+                        () -> view.onInsertSuccess(),
+                        throwable -> view.onInsertError(throwable.getMessage())
+                );
     }
 
 }

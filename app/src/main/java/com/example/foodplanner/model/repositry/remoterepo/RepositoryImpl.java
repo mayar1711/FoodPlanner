@@ -1,4 +1,4 @@
-package com.example.foodplanner.model.repositry;
+package com.example.foodplanner.model.repositry.remoterepo;
 
 import android.util.Log;
 
@@ -7,7 +7,6 @@ import com.example.foodplanner.model.network.ApiService;
 import com.example.foodplanner.model.response.CategoryResponse;
 import com.example.foodplanner.model.response.CuisineResponse;
 import com.example.foodplanner.model.response.IngredientResponse;
-import com.example.foodplanner.model.response.MealPreviewResponse;
 import com.example.foodplanner.model.response.MealResponse;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.example.foodplanner.ui.plane.presenter;
 
 import com.example.foodplanner.model.data.MealPlane;
-import com.example.foodplanner.model.repositry.MealRepo;
+import com.example.foodplanner.model.repositry.localrepo.MealRepo;
 import com.example.foodplanner.ui.plane.view.PlaneView;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.schedulers.Schedulers;

@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import com.example.foodplanner.R;
 import com.example.foodplanner.model.data.Meal;
-import com.example.foodplanner.model.repositry.MealRepoImp;
+import com.example.foodplanner.model.repositry.localrepo.MealRepoImp;
 import com.example.foodplanner.model.repositry.localrepo.MealLocalDatasourceImp;
 import com.example.foodplanner.ui.favorite.presenter.FavMeal;
 import com.example.foodplanner.ui.favorite.presenter.FavMealImp;

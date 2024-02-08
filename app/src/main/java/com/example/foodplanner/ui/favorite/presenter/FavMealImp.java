@@ -2,7 +2,7 @@ package com.example.foodplanner.ui.favorite.presenter;
 
 import android.util.Log;
 import com.example.foodplanner.model.data.Meal;
-import com.example.foodplanner.model.repositry.MealRepo;
+import com.example.foodplanner.model.repositry.localrepo.MealRepo;
 import com.example.foodplanner.ui.favorite.view.FavMealView;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.schedulers.Schedulers;

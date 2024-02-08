@@ -18,8 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodplanner.R;
 import com.example.foodplanner.model.data.Meal;
 import com.example.foodplanner.model.network.ApiClient;
-import com.example.foodplanner.model.repositry.RepositoryImpl;
-import com.example.foodplanner.ui.meallist.Categorie.view.MealListAdapter;
+import com.example.foodplanner.model.repositry.remoterepo.RepositoryImpl;
 import com.example.foodplanner.ui.searchbyname.presenter.SearchByNamePresenterImp;
 
 import java.io.Serializable;

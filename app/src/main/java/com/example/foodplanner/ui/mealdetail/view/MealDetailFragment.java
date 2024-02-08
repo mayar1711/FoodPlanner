@@ -21,7 +21,7 @@ import com.example.foodplanner.R;
 import com.example.foodplanner.model.data.GetArrayFromMeal;
 import com.example.foodplanner.model.data.Meal;
 import com.example.foodplanner.model.data.MealPlane;
-import com.example.foodplanner.model.repositry.MealRepoImp;
+import com.example.foodplanner.model.repositry.localrepo.MealRepoImp;
 import com.example.foodplanner.model.repositry.localrepo.MealLocalDatasourceImp;
 import com.example.foodplanner.ui.mealdetail.presinter.GetIdFromYoutubeUrl;
 import com.example.foodplanner.ui.mealdetail.presinter.MealDetailContractPresenter;
@@ -33,7 +33,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 public class MealDetailFragment extends Fragment implements MealDetailContractView {
     private MealDetailContractPresenter presenter;

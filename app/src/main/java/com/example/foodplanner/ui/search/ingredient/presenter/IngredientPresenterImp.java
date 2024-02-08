@@ -1,6 +1,6 @@
 package com.example.foodplanner.ui.search.ingredient.presenter;
 
-import com.example.foodplanner.model.repositry.RepositoryInterface;
+import com.example.foodplanner.model.repositry.remoterepo.RepositoryInterface;
 import com.example.foodplanner.model.response.IngredientResponse;
 import com.example.foodplanner.ui.search.ingredient.view.IngredientView;
 

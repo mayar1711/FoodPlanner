@@ -3,7 +3,7 @@ package com.example.foodplanner.ui.meallist.Categorie.presenter;
 import android.util.Log;
 
 import com.example.foodplanner.model.data.Meal;
-import com.example.foodplanner.model.repositry.RepositoryInterface;
+import com.example.foodplanner.model.repositry.remoterepo.RepositoryInterface;
 import com.example.foodplanner.model.response.MealResponse;
 import com.example.foodplanner.ui.meallist.Categorie.view.MealListView;
 
