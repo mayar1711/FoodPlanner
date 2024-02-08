@@ -19,7 +19,6 @@ public class LoginPresenterImp implements LoginPresenter , AuthListener {
         view.showLoading();
         repository.signInWithEmail(email, password, this);
     }
-
     @Override
     public void onSuccess() {
         view.hideLoading();

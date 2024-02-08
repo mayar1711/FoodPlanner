@@ -109,7 +109,11 @@
     </fragment>
     <fragment
         android:id="@+id/planeFragment"
-        android:name="com.example.foodplanner.ui.plane.PlaneFragment"
+        android:name="com.example.foodplanner.ui.plane.view.PlaneFragment"
         android:label="Plane"
-        tools:layout="@layout/fragment_plane" />
+        tools:layout="@layout/fragment_plane" >
+        <action
+            android:id="@+id/action_planeFragment_to_navigation_search"
+            app:destination="@id/navigation_search" />
+    </fragment>
 </navigation>

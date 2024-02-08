@@ -1,6 +1,7 @@
 package com.example.foodplanner.ui.mealdetail.presinter;
 
 import com.example.foodplanner.model.data.Meal;
+import com.example.foodplanner.model.data.MealPlane;
 import com.example.foodplanner.model.repositry.MealRepo;
 import com.example.foodplanner.ui.mealdetail.view.MealDetailContractView;
 
@@ -25,6 +26,15 @@ public class MealDetailPresenter  implements MealDetailContractPresenter {
     @Override
     public void addProductToFavorite(Meal meal) {
         mealRepo.insertProductToFavorite(meal)
+                .subscribe(
+                        () -> view.onInsertSuccess(),
+                        throwable -> view.onInsertError(throwable.getMessage())
+                );
+    }
+
+    @Override
+    public void addMealPlane(MealPlane mealPlane) {
+        mealRepo.insertMealToPlane(mealPlane)
                 .subscribe(
                         () -> view.onInsertSuccess(),
                         throwable -> view.onInsertError(throwable.getMessage())

@@ -39,6 +39,7 @@ public class HomeActivity extends AppCompatActivity {
                     destination.getId() == R.id.mealDetailFragment ||
                     destination.getId() == R.id.categoryList ||
                     destination.getId() ==R.id.mealById||
+                    destination.getId()==R.id.mealByIngradient||
                     destination.getId() == R.id.getMealByCuisineFragment) {
                 toolbar.setVisibility(View.GONE);
                 navView.setVisibility(View.GONE);

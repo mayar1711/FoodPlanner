@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
@@ -20,8 +21,11 @@ import com.example.foodplanner.R;
 import com.example.foodplanner.model.data.Category;
 import com.example.foodplanner.model.data.GetArrayFromMeal;
 import com.example.foodplanner.model.data.Meal;
+import com.example.foodplanner.model.data.MealPlane;
 import com.example.foodplanner.model.network.ApiClient;
+import com.example.foodplanner.model.repositry.MealRepoImp;
 import com.example.foodplanner.model.repositry.RepositoryImpl;
+import com.example.foodplanner.model.repositry.localrepo.MealLocalDatasourceImp;
 import com.example.foodplanner.ui.mealdetail.presinter.GetIdFromYoutubeUrl;
 import com.example.foodplanner.ui.mealdetail.view.MealIngredientsAdapter;
 import com.example.foodplanner.ui.meallist.mealbyid.presenter.MealByIdPresenter;
@@ -49,7 +53,7 @@ public class MealById extends Fragment implements MealByIdView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter=new MealByIdPresenterImp(new RepositoryImpl(ApiClient.getApiService()), this);
+        presenter=new MealByIdPresenterImp(new RepositoryImpl(ApiClient.getApiService()), this, MealRepoImp.getInstance(MealLocalDatasourceImp.getInstance(requireContext())));
 
     }
 
@@ -76,7 +80,9 @@ public class MealById extends Fragment implements MealByIdView {
         linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView.setAdapter(ingredientsAdapter);
         recyclerView.setLayoutManager(linearLayoutManager);
-
+        addToFav.setOnClickListener(v -> {
+            addProductToFav(meal);
+        });
         player=view.findViewById(R.id.ytPlayer);
         player.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
@@ -117,6 +123,29 @@ public class MealById extends Fragment implements MealByIdView {
     public void showListError(String error) {
 
     }
+
+    @Override
+    public void addProductToFav(Meal meal) {
+        presenter.addProductToFav(meal);
+    }
+
+    @Override
+    public void addMealPlane(MealPlane mealPlane) {
+
+    }
+
+    @Override
+    public void onInsertSuccess() {
+        Toast.makeText(requireActivity(), "meal added to favorites", Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onInsertError(String errorMessage) {
+        Toast.makeText(requireActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+        Log.i("TAG", "onInsertError: "+errorMessage);
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();

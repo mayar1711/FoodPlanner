@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.lifecycle.LiveData;
 
 import com.example.foodplanner.model.data.Meal;
+import com.example.foodplanner.model.data.MealPlane;
 import com.example.foodplanner.model.local.MealDao;
 import com.example.foodplanner.model.local.MyDataBase;
 
@@ -19,6 +20,7 @@ public class MealLocalDatasourceImp implements MealLocalDatasource{
     private MealDao mealDao;
     private LiveData<List<Meal>> meals;
     private Flowable<List<Meal>> favMeals;
+    private Flowable<List<MealPlane>> mealPlane;
     private static MealLocalDatasourceImp localDatasourceImp;
     private MyDataBase dataBase;
     public MealLocalDatasourceImp(Context context)
@@ -26,6 +28,7 @@ public class MealLocalDatasourceImp implements MealLocalDatasource{
         dataBase=MyDataBase.getInstance(context);
         mealDao=dataBase.getproductDao();
         favMeals=mealDao.getAllProducts();
+        mealPlane=mealDao.getAllMealPlane();
     }
     public static synchronized MealLocalDatasourceImp getInstance(Context context){
         if(localDatasourceImp==null)
@@ -53,6 +56,29 @@ public class MealLocalDatasourceImp implements MealLocalDatasource{
         }
         return favMeals;
     }
+
+    @Override
+    public Completable insertMealToPlane(MealPlane meal) {
+        return mealDao.insertMealToPlane(meal)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public void deleteMealPlane(MealPlane meal) {
+        new Thread(() -> mealDao.deleteMealFromPlane(meal)){
+        }.start();
+    }
+
+    @Override
+    public Flowable<List<MealPlane>> getPlaneMeals() {
+        if(mealPlane == null)
+        {
+            mealPlane=mealDao.getAllMealPlane();
+        }
+        return mealPlane;
+    }
+
     public LiveData<List<Meal>> getProducts() {
         return meals;
     }

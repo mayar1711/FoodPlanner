@@ -2,6 +2,8 @@ package com.example.foodplanner.ui.meallist.mealbyid.presenter;
 
 import android.util.Log;
 import com.example.foodplanner.model.data.Meal;
+import com.example.foodplanner.model.data.MealPlane;
+import com.example.foodplanner.model.repositry.MealRepo;
 import com.example.foodplanner.model.repositry.RepositoryInterface;
 import com.example.foodplanner.model.response.MealResponse;
 import com.example.foodplanner.ui.meallist.mealbyid.view.MealByIdView;
@@ -12,10 +14,12 @@ import io.reactivex.rxjava3.disposables.Disposable;
 public class MealByIdPresenterImp implements MealByIdPresenter {
     private final RepositoryInterface repository;
     private final MealByIdView view;
+    private MealRepo mealRepo;
 
-    public MealByIdPresenterImp(RepositoryInterface repository, MealByIdView view) {
+    public MealByIdPresenterImp(RepositoryInterface repository, MealByIdView view ,  MealRepo mealRepo) {
         this.repository = repository;
         this.view = view;
+        this.mealRepo=mealRepo;
     }
 
     @Override
@@ -47,4 +51,19 @@ public class MealByIdPresenterImp implements MealByIdPresenter {
                     }
                 });
     }
+
+    @Override
+    public void addProductToFav(Meal meal) {
+        mealRepo.insertProductToFavorite(meal)
+                .subscribe(
+                        () -> view.onInsertSuccess(),
+                        throwable -> view.onInsertError(throwable.getMessage())
+                );
+    }
+
+    @Override
+    public void addMealPlane(MealPlane mealPlane) {
+
+    }
+
 }

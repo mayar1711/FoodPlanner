@@ -1,70 +1,83 @@
-package com.example.foodplanner.ui.favorite.view;
+package com.example.foodplanner.ui.plane.view;
 
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.Toast;
+
 import com.example.foodplanner.R;
-import com.example.foodplanner.model.data.Meal;
+import com.example.foodplanner.model.data.MealPlane;
 import com.example.foodplanner.model.repositry.MealRepoImp;
 import com.example.foodplanner.model.repositry.localrepo.MealLocalDatasourceImp;
-import com.example.foodplanner.ui.favorite.presenter.FavMeal;
-import com.example.foodplanner.ui.favorite.presenter.FavMealImp;
+import com.example.foodplanner.ui.plane.presenter.MealPlanerPresenter;
+import com.example.foodplanner.ui.plane.presenter.MealPlanerPresenterImp;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavoriteFragment extends Fragment implements FavMealView{
+public class PlaneFragment extends Fragment implements PlaneView {
+    private MealPlanerPresenter presenter;
     private RecyclerView recyclerView;
-    private FavMeal favMeal;
-    private FavoriteMealAdapter adapter;
-    public FavoriteFragment() {
-
-    }
+    private PLaneAdapter adapter;
+    private CalendarView calendarView;
+    private Button navigateToSearch ;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        adapter = new FavoriteMealAdapter(new ArrayList<>());
-       // favMeal.getProducts();
+        adapter=new PLaneAdapter(new ArrayList<>());
     }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View view= inflater.inflate(R.layout.fragment_plane, container, false);
+
+        return view;
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        favMeal= FavMealImp.getInstance(
+        presenter= MealPlanerPresenterImp.getInstance(
                 MealRepoImp.getInstance(
                         MealLocalDatasourceImp.getInstance(requireContext())
                 ),
                 this
         );
-
-        recyclerView = view.findViewById(R.id.recycler1_view);
+        recyclerView = view.findViewById(R.id.mealWeekPlan_recyclerView_weekplan);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireActivity());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
-        adapter.onDeleteClickListener = this::deleteFavProduct;
-        favMeal.getProducts();
-
-    }
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_favorite, container, false);
-        return view;
-    }
-    @Override
-    public void deleteFavProduct(Meal meal) {
-        favMeal.deleteFavoriteProduct(meal);
+        adapter.onDeleteClickListener = this::deletePlaneMeal;
+        presenter.getPlane();
+        navigateToSearch=view.findViewById(R.id.addMeal_button_weekplan);
+        navigateToSearch.setOnClickListener(v -> {
+            Navigation.findNavController(requireView()).navigate(R.id.action_planeFragment_to_navigation_search
+            );
+        });
     }
 
     @Override
-    public void onGetAllFavoriteProducts(List<Meal> favoriteMeal) {
+    public void deletePlaneMeal(MealPlane meal) {
+        presenter.deletePlaneMeal(meal);
+    }
+
+    @Override
+    public void onGetAllPlaneMeal(List<MealPlane> favoriteMeal) {
         Log.i("TAG", "Received data: " + favoriteMeal.toString());
         adapter.changeData(favoriteMeal);
         adapter.notifyDataSetChanged();
@@ -72,7 +85,8 @@ public class FavoriteFragment extends Fragment implements FavMealView{
     }
 
     @Override
-    public void onGetAllFavoriteProductsError(String errorMessage) {
+    public void onGetAllPlaneMealError(String errorMessage) {
         Toast.makeText(requireActivity(), "Error: " + errorMessage, Toast.LENGTH_SHORT).show();
+
     }
 }

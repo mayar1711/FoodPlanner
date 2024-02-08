@@ -22,7 +22,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/mangiami" />
+                app:srcCompat="@drawable/appname" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/et_email"
@@ -132,7 +132,7 @@
                 android:focusable="true"
                 android:padding="@dimen/spacing_small"
                 android:text="@string/sign_up"
-                android:textColor="@color/red"
+                android:textColor="@color/active"
                 android:textSize="@dimen/text_size_medium"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/do_not_have_account_tv"
@@ -158,7 +158,7 @@
                 android:layout_marginStart="19dp"
                 android:layout_marginTop="4dp"
                 android:text="@string/skip"
-                android:textColor="@color/red"
+                android:textColor="@color/active"
                 android:textSize="@dimen/text_size_medium"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"

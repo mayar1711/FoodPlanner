@@ -1,6 +1,7 @@
 package com.example.foodplanner.model.repositry;
 
 import com.example.foodplanner.model.data.Meal;
+import com.example.foodplanner.model.data.MealPlane;
 import com.example.foodplanner.model.repositry.localrepo.MealLocalDatasource;
 import com.example.foodplanner.model.response.MealResponse;
 
@@ -44,5 +45,20 @@ public class MealRepoImp implements MealRepo{
     public Flowable<List<Meal>> getFavProducts() {
         return mealLocalDatasource.getFavMeals();
 
+    }
+
+    @Override
+    public Completable insertMealToPlane(MealPlane meal) {
+        return mealLocalDatasource.insertMealToPlane(meal);
+    }
+
+    @Override
+    public void deleteMealPlane(MealPlane meal) {
+          mealLocalDatasource.deleteMealPlane(meal);
+    }
+
+    @Override
+    public Flowable<List<MealPlane>> getPlaneMeal() {
+        return mealLocalDatasource.getPlaneMeals();
     }
 }

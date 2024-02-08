@@ -22,7 +22,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/my_logo" />
+                app:srcCompat="@drawable/mangiami" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/your_name"
@@ -153,7 +153,7 @@
                 android:focusable="true"
                 android:padding="@dimen/spacing_small"
                 android:text="@string/login"
-                android:textColor="@color/red"
+                android:textColor="@color/active"
                 android:textSize="@dimen/text_size_medium"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/do_not_have_account_tv"
