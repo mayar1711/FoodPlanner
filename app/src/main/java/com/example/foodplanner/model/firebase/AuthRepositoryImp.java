@@ -15,6 +15,11 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class AuthRepositoryImp implements AuthRepository {
     private FirebaseAuth firebaseAuth;
@@ -70,10 +75,32 @@ public class AuthRepositoryImp implements AuthRepository {
         // Pass the listener to onActivityResult method
         activity.startActivityForResult(signInIntent, RC_SIGN_IN);
     }
+    private void saveUserEmailToDatabase(String email) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
+        String encodedEmail = encodeEmailForFirebase(email);
+        databaseReference.child(encodedEmail).setValue(email);
+    }
 
-    // No need to override onActivityResult method here
+    private String encodeEmailForFirebase(String email) {
+        return email.replace(".", ",");
+    }
 
-    // Handle the result of Google sign-in here
+    public void getUserEmail(String email, EmailListener listener) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
+        String encodedEmail = encodeEmailForFirebase(email); // Encode the email
+        databaseReference.child(encodedEmail).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String email = dataSnapshot.child("email").getValue(String.class);
+                listener.onEmailReceived(email);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle error
+            }
+        });
+    }
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
@@ -92,4 +119,5 @@ public class AuthRepositoryImp implements AuthRepository {
                 .addOnSuccessListener(authResult -> listener.onSuccess())
                 .addOnFailureListener(e -> listener.onFailure(e.getMessage()));
     }
+
 }

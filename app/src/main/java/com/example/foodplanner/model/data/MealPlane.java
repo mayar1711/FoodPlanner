@@ -167,4 +167,8 @@ public class MealPlane implements Serializable {
         this.strMeasure19=meal.strMeasure19;
         this.strMeasure20=meal.strMeasure20;
     }
+    public void getMealPlane()
+    {
+
+    }
 }

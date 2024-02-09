@@ -21,6 +21,8 @@ import com.example.foodplanner.model.firebase.AuthRepositoryImp;
 import com.example.foodplanner.ui.HomeActivity;
 import com.example.foodplanner.ui.authentication.signup.presenter.SignUpPresenterImp;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpFragment extends Fragment implements SignUp , AuthListener {
 
@@ -35,12 +37,6 @@ public class SignUpFragment extends Fragment implements SignUp , AuthListener {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       /* GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso);*/
 
     }
 
@@ -71,9 +67,29 @@ public class SignUpFragment extends Fragment implements SignUp , AuthListener {
             String password = etPassword.getText().toString().trim();
             if (isValidEmail(email) && isValidPassword(password)) {
                 presenter.signUpWithEmail(email, password);
+                saveUserEmailToDatabase(email);
             }
         });
         return view;
+    }
+    private void saveUserEmailToDatabase(String email) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
+        String encodedEmail = encodeEmailForFirebase(email);
+        databaseReference.child(encodedEmail).setValue(email)
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(requireActivity(), "User email saved successfully", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(requireActivity(), "Failed to save user email: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    private String encodeEmailForFirebase(String email) {
+      return email.replace(".", ",");
+    }
+    private String getKeyFromEmail(TextInputEditText emailEditText) {
+        String email = emailEditText.getText().toString().trim();
+        return email.replace(".", ",");
     }
     private boolean isValidEmail(String email) {
         if (email.isEmpty()) {
@@ -118,12 +134,13 @@ public class SignUpFragment extends Fragment implements SignUp , AuthListener {
     }
 
     @Override
-    public void onSuccess() {
-        Toast.makeText(requireActivity(), "donnnnnne", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
     public void onFailure(String error) {
         Toast.makeText(requireActivity(), "failed ", Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    public void onSuccess() {
+        Toast.makeText(requireActivity(), "Signup Successful", Toast.LENGTH_SHORT).show();
+        // Call saveUserEmailToDatabase after successful signup
+       // saveUserEmailToDatabase(etEmail.getText().toString().trim());
     }
 }

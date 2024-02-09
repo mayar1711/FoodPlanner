@@ -81,4 +81,8 @@ dependencies {
     //Lotti Dependency
     implementation ("com.airbnb.android:lottie:3.4.1")
 
+    //
+    implementation ("com.google.firebase:firebase-database:20.0.1")
+
+
 }
