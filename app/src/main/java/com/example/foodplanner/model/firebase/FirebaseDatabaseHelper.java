@@ -17,15 +17,15 @@ public class FirebaseDatabaseHelper {
         databaseReference.child("favorites").child(userEmail).child(meal.getIdMeal()).setValue(meal);
     }
 
-    public void removeFavoriteMeal(String userEmail, String mealId) {
-        databaseReference.child("favorites").child(userEmail).child(mealId).removeValue();
+    public void removeFavoriteMeal(String userEmail, Meal meal) {
+        databaseReference.child("favorites").child(userEmail).child(meal.getIdMeal()).removeValue();
     }
 
     public void addMealPlan(String userEmail, MealPlane meal) {
         databaseReference.child("mealPlans").child(userEmail).child(meal.getIdMeal()).setValue(meal);
     }
 
-    public void removeMealPlan(String userEmail, String mealId) {
-        databaseReference.child("mealPlans").child(userEmail).child(mealId).removeValue();
+    public void removeMealPlan(String userEmail, MealPlane meal) {
+        databaseReference.child("mealPlans").child(userEmail).child(meal.getIdMeal()).removeValue();
     }
 }

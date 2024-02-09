@@ -32,9 +32,11 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class MealById extends Fragment implements MealByIdView {
      private MealByIdPresenterImp presenter;
@@ -118,7 +120,8 @@ public class MealById extends Fragment implements MealByIdView {
         datePickerDialog.show();
     }
     private void handleDateSelection(Date date) {
-        this.date = date.toString();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        this.date = sdf.format(date);
         Toast.makeText(requireActivity(), "date" +date, Toast.LENGTH_SHORT).show();
         MealPlane mealPlane = new MealPlane();
         mealPlane.setMealData(meal);

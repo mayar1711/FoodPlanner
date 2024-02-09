@@ -43,6 +43,7 @@ public class MealRepoImp implements MealRepo {
     @Override
     public void deleteFavoriteProduct(Meal meal) {
         mealLocalDatasource.deleteFavoriteProduct(meal);
+        deleteMealInRemote(meal);
     }
 
     @Override
@@ -60,6 +61,7 @@ public class MealRepoImp implements MealRepo {
     @Override
     public void deleteMealPlane(MealPlane meal) {
           mealLocalDatasource.deleteMealPlane(meal);
+          deletePlaneInRemote(meal);
     }
 
     @Override
@@ -92,4 +94,15 @@ public class MealRepoImp implements MealRepo {
                         }
                 );
     }
+
+    @Override
+    public void deletePlaneInRemote(MealPlane mealPlane) {
+        remoteDatasourceImp.deletePlane(mealPlane);
+    }
+
+    @Override
+    public void deleteMealInRemote(Meal meal) {
+        remoteDatasourceImp.deleteFav(meal);
+    }
+
 }

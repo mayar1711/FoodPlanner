@@ -20,5 +20,7 @@ public interface MealRepo {
     Flowable<List<MealPlane>> getPlaneMeal();
     void insertProductToFavoriteRemote(Meal meal);
     void insertMealToPlaneRemote(MealPlane mealPlane);
+    void deletePlaneInRemote(MealPlane mealPlane);
+    void deleteMealInRemote(Meal meal);
 
 }

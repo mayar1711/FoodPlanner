@@ -9,5 +9,7 @@ import io.reactivex.rxjava3.core.Completable;
     public interface MealRemoteDatasource {
         Completable insertProductToFavorite( Meal meal);
         Completable insertMealToPlan(MealPlane meal);
-        void deleteMealFromPlan(String userEmail, String mealId);
+        void deletePlane(MealPlane mealPlane);
+        void deleteFav(Meal meal);
+
     }

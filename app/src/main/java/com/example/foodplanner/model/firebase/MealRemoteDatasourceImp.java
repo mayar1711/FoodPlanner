@@ -34,10 +34,19 @@ public class MealRemoteDatasourceImp implements MealRemoteDatasource {
         return Completable.complete();
     }
 
-
+    @Override
+    public void deletePlane(MealPlane mealPlane) {
+        String userEmail = firebaseAuth.getCurrentUser().getEmail();
+        String encodedEmail = encodeEmailForFirebase(userEmail);
+        firebaseDatabaseHelper.removeMealPlan(encodedEmail,mealPlane);
+    }
 
     @Override
-    public void deleteMealFromPlan(String userEmail, String mealId) {
-        firebaseDatabaseHelper.removeMealPlan(userEmail, mealId);
+    public void deleteFav(Meal meal) {
+        String userEmail = firebaseAuth.getCurrentUser().getEmail();
+        String encodedEmail = encodeEmailForFirebase(userEmail);
+        firebaseDatabaseHelper.removeFavoriteMeal(encodedEmail,meal);
     }
+
+
 }
