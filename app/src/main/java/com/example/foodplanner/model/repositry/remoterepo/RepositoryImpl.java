@@ -1,17 +1,14 @@
 package com.example.foodplanner.model.repositry.remoterepo;
 
 import android.util.Log;
-
 import com.example.foodplanner.model.data.Ingredient;
 import com.example.foodplanner.model.network.ApiService;
 import com.example.foodplanner.model.response.CategoryResponse;
 import com.example.foodplanner.model.response.CuisineResponse;
 import com.example.foodplanner.model.response.IngredientResponse;
 import com.example.foodplanner.model.response.MealResponse;
-
 import java.util.List;
 import java.util.stream.Collectors;
-
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.core.SingleObserver;

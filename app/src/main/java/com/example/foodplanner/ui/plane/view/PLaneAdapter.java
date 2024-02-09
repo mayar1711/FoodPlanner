@@ -19,6 +19,7 @@ public class PLaneAdapter extends RecyclerView.Adapter<PLaneAdapter.ViewHolder> 
 
     private List<MealPlane> meals;
     public OnDeleteClickListener onDeleteClickListener;
+    private OnPlaneClicked planeClicked;
     public PLaneAdapter(List<MealPlane> meals)
     {
         this.meals=meals;
@@ -48,6 +49,11 @@ public class PLaneAdapter extends RecyclerView.Adapter<PLaneAdapter.ViewHolder> 
         Glide.with(holder.imageView.getContext()).load(meal.getStrMealThumb()).into(holder.imageView);
         holder.deleteBtn.setOnClickListener(view -> {
             onDeleteClickListener.onItemClickListener(meal);
+        });
+        holder.itemView.setOnClickListener(v -> {
+            if (planeClicked != null) {
+                planeClicked.onItemClickListener(meal);
+            }
         });
     }
 

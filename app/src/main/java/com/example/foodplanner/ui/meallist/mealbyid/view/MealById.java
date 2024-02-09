@@ -51,6 +51,7 @@ public class MealById extends Fragment implements MealByIdView {
     private ImageView plane;
     private Calendar selectedDateCalendar;
     String date;
+    Meal meal;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,7 +65,7 @@ public class MealById extends Fragment implements MealByIdView {
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_meal_by_id, container, false);
         ingredientsAdapter = new MealByIdIngredientsAdapter(new ArrayList<>());
-        Meal meal=(Meal) getArguments().getSerializable ("meal");
+        meal=(Meal) getArguments().getSerializable ("meal");
         Bundle bundle = getArguments();
         if (bundle != null && bundle.containsKey("meal")) {
             Log.d("MealListFragment ById", "Category: " + meal);
@@ -119,7 +120,6 @@ public class MealById extends Fragment implements MealByIdView {
     private void handleDateSelection(Date date) {
         this.date = date.toString();
         Toast.makeText(requireActivity(), "date" +date, Toast.LENGTH_SHORT).show();
-        Meal meal = (Meal) getArguments().getSerializable("meal");
         MealPlane mealPlane = new MealPlane();
         mealPlane.setMealData(meal);
         addMealPlane(mealPlane);
@@ -135,6 +135,7 @@ public class MealById extends Fragment implements MealByIdView {
 
     @Override
     public void showMealById(Meal meal) {
+        this.meal=meal;
         getActivity().runOnUiThread(() -> {
             textViewMealName.setText(meal.getStrMeal());
             categoryName.setText(meal.getStrCategory());

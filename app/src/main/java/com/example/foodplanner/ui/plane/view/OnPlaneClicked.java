@@ -1,7 +1,7 @@
 package com.example.foodplanner.ui.plane.view;
 
-import com.example.foodplanner.model.data.Meal;
+import com.example.foodplanner.model.data.MealPlane;
 
 public interface OnPlaneClicked {
-    void onItemClickListener(Meal meal);
+    void onItemClickListener(MealPlane meal);
 }

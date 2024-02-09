@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-
 import java.io.Serializable;
 
 @Entity(tableName = "plane")
@@ -167,6 +166,5 @@ public class MealPlane implements Serializable {
         this.strMeasure18=meal.strMeasure18;
         this.strMeasure19=meal.strMeasure19;
         this.strMeasure20=meal.strMeasure20;
-
     }
 }

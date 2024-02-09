@@ -19,6 +19,7 @@ import java.util.List;
 public class FavoriteMealAdapter extends RecyclerView.Adapter<FavoriteMealAdapter.FavProducctViewHolder> {
     private List<Meal> meals;
     public OnDeleteClickListener onDeleteClickListener;
+    private OnClickListener listener;
     public FavoriteMealAdapter(List<Meal> meals)
     {
         this.meals=meals;
@@ -29,6 +30,10 @@ public class FavoriteMealAdapter extends RecyclerView.Adapter<FavoriteMealAdapte
     }
     public List<Meal> getMeals() {
         return meals;
+    }
+
+    public void setListener(OnClickListener listener) {
+        this.listener = listener;
     }
 
     @NonNull
@@ -46,6 +51,11 @@ public class FavoriteMealAdapter extends RecyclerView.Adapter<FavoriteMealAdapte
         Glide.with(holder.imageView.getContext()).load(meal.getStrMealThumb()).into(holder.imageView);
         holder.deleteBtn.setOnClickListener(view -> {
             onDeleteClickListener.onItemClickListener(meal);
+        });
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onClickMeal(meal);
+            }
         });
     }
 

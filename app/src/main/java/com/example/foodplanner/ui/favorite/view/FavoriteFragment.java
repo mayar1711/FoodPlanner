@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
@@ -21,7 +22,7 @@ import com.example.foodplanner.ui.favorite.presenter.FavMealImp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavoriteFragment extends Fragment implements FavMealView{
+public class FavoriteFragment extends Fragment implements FavMealView ,OnClickListener{
     private RecyclerView recyclerView;
     private FavMeal favMeal;
     private FavoriteMealAdapter myAdapter;
@@ -67,8 +68,9 @@ public class FavoriteFragment extends Fragment implements FavMealView{
         recyclerView.setAdapter(myAdapter);
         myAdapter.onDeleteClickListener = this::deleteFavProduct;
 
-
+        myAdapter.setListener(this);
         favMeal.getProducts(this);
+
         return view;
     }
     @Override
@@ -89,5 +91,12 @@ public class FavoriteFragment extends Fragment implements FavMealView{
     @Override
     public void onGetAllFavoriteProductsError(String errorMessage) {
         Toast.makeText(requireActivity(), "Error: " + errorMessage, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClickMeal(Meal meal) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("meal", meal);
+        Navigation.findNavController(requireView()).navigate(R.id.action_navigation_favorite_to_mealDetailFragment,bundle);
     }
 }

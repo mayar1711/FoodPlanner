@@ -23,25 +23,27 @@ import com.example.foodplanner.ui.plane.presenter.MealPlanerPresenter;
 import com.example.foodplanner.ui.plane.presenter.MealPlanerPresenterImp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class PlaneFragment extends Fragment implements PlaneView {
     private MealPlanerPresenter presenter;
     private RecyclerView recyclerView;
     private PLaneAdapter adapter;
     private CalendarView calendarView;
-    private Button navigateToSearch ;
+    private Button navigateToSearch;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        adapter=new PLaneAdapter(new ArrayList<>());
+        adapter = new PLaneAdapter(new ArrayList<>());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view= inflater.inflate(R.layout.fragment_plane, container, false);
-        presenter= MealPlanerPresenterImp.getInstance(
+        View view = inflater.inflate(R.layout.fragment_plane, container, false);
+        presenter = MealPlanerPresenterImp.getInstance(
                 MealRepoImp.getInstance(
                         MealLocalDatasourceImp.getInstance(requireContext())
                 ),
@@ -53,25 +55,24 @@ public class PlaneFragment extends Fragment implements PlaneView {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
         adapter.onDeleteClickListener = this::deletePlaneMeal;
-        presenter.getPlane(this);
-        navigateToSearch=view.findViewById(R.id.addMeal_button_weekplan);
+
+        calendarView = view.findViewById(R.id.calendarView);
+        calendarView.setOnDateChangeListener((calendarView, year, month, dayOfMonth) -> {
+            String selectedDate = String.format(Locale.getDefault(), "%04d-%02d-%02d", year, month + 1, dayOfMonth);
+            Log.i("PlaneFragment", "Selected date: " + selectedDate);
+            presenter.getPlane(this, selectedDate);
+        });
+
+        navigateToSearch = view.findViewById(R.id.addMeal_button_weekplan);
         navigateToSearch.setOnClickListener(v -> {
-            Navigation.findNavController(requireView()).navigate(R.id.action_planeFragment_to_navigation_search
-            );
+            Navigation.findNavController(requireView()).navigate(R.id.action_planeFragment_to_navigation_search);
         });
         return view;
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-
-    }
-
-    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
     }
 
     @Override
@@ -90,6 +91,5 @@ public class PlaneFragment extends Fragment implements PlaneView {
     @Override
     public void onGetAllPlaneMealError(String errorMessage) {
         Toast.makeText(requireActivity(), "Error: " + errorMessage, Toast.LENGTH_SHORT).show();
-
     }
 }
