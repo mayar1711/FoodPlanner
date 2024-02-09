@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_navigation_favorite_to_mealDetailFragment"
             app:destination="@id/mealDetailFragment" />
+        <action
+            android:id="@+id/action_navigation_favorite_to_mealById"
+            app:destination="@id/mealById" />
     </fragment>
 
     <fragment
@@ -109,7 +112,17 @@
     </fragment>
     <fragment
         android:id="@+id/planeFragment"
-        android:name="com.example.foodplanner.ui.plane.PlaneFragment"
+        android:name="com.example.foodplanner.ui.plane.view.PlaneFragment"
         android:label="Plane"
-        tools:layout="@layout/fragment_plane" />
+        tools:layout="@layout/fragment_plane" >
+        <action
+            android:id="@+id/action_planeFragment_to_navigation_search"
+            app:destination="@id/navigation_search" />
+        <action
+            android:id="@+id/action_planeFragment_to_mealById"
+            app:destination="@id/mealById" />
+        <action
+            android:id="@+id/action_planeFragment_to_mealDetailFragment"
+            app:destination="@id/mealDetailFragment" />
+    </fragment>
 </navigation>

@@ -1,4 +1,4 @@
-package com.example.foodplanner.model.repositry;
+package com.example.foodplanner.model.repositry.remoterepo;
 
 import com.example.foodplanner.model.response.CategoryResponse;
 import com.example.foodplanner.model.response.CuisineResponse;

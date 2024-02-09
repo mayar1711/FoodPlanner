@@ -1,5 +1,6 @@
 package com.example.foodplanner.ui.favorite.view;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import java.util.List;
 public class FavoriteMealAdapter extends RecyclerView.Adapter<FavoriteMealAdapter.FavProducctViewHolder> {
     private List<Meal> meals;
     public OnDeleteClickListener onDeleteClickListener;
+    private OnClickListener listener;
     public FavoriteMealAdapter(List<Meal> meals)
     {
         this.meals=meals;
@@ -28,6 +30,10 @@ public class FavoriteMealAdapter extends RecyclerView.Adapter<FavoriteMealAdapte
     }
     public List<Meal> getMeals() {
         return meals;
+    }
+
+    public void setListener(OnClickListener listener) {
+        this.listener = listener;
     }
 
     @NonNull
@@ -46,10 +52,16 @@ public class FavoriteMealAdapter extends RecyclerView.Adapter<FavoriteMealAdapte
         holder.deleteBtn.setOnClickListener(view -> {
             onDeleteClickListener.onItemClickListener(meal);
         });
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onClickMeal(meal);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
+        Log.i("TAG", "getItemCount: "+meals.size());
         return meals.size();
     }
 

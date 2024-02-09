@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.example.foodplanner.R;
 import com.example.foodplanner.model.data.Meal;
 import com.example.foodplanner.model.network.ApiClient;
-import com.example.foodplanner.model.repositry.RepositoryImpl;
+import com.example.foodplanner.model.repositry.remoterepo.RepositoryImpl;
 import com.example.foodplanner.ui.meallist.Categorie.presenter.MealListPresenter;
 
 public class CategoryList extends Fragment  implements MealListView ,OnItemClickListener{

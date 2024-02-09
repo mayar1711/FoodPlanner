@@ -1,7 +1,7 @@
-package com.example.foodplanner.model.repositry;
+package com.example.foodplanner.model.repositry.localrepo;
 
 import com.example.foodplanner.model.data.Meal;
-import com.example.foodplanner.model.repositry.localrepo.MealLocalDatasource;
+import com.example.foodplanner.model.data.MealPlane;
 import com.example.foodplanner.model.response.MealResponse;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
 
-public class MealRepoImp implements MealRepo{
+public class MealRepoImp implements MealRepo {
     private MealLocalDatasource mealLocalDatasource;
     private static MealRepoImp mealRepoImp;
     public static MealRepoImp getInstance(MealLocalDatasource mealLocalDatasource)
@@ -44,5 +44,20 @@ public class MealRepoImp implements MealRepo{
     public Flowable<List<Meal>> getFavProducts() {
         return mealLocalDatasource.getFavMeals();
 
+    }
+
+    @Override
+    public Completable insertMealToPlane(MealPlane meal) {
+        return mealLocalDatasource.insertMealToPlane(meal);
+    }
+
+    @Override
+    public void deleteMealPlane(MealPlane meal) {
+          mealLocalDatasource.deleteMealPlane(meal);
+    }
+
+    @Override
+    public Flowable<List<MealPlane>> getPlaneMeal() {
+        return mealLocalDatasource.getPlaneMeals();
     }
 }

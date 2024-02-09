@@ -1,6 +1,6 @@
 package com.example.foodplanner.ui.home.presinter;
 
-import com.example.foodplanner.model.repositry.RepositoryInterface;
+import com.example.foodplanner.model.repositry.remoterepo.RepositoryInterface;
 import com.example.foodplanner.model.response.MealResponse;
 import com.example.foodplanner.ui.home.view.MealView;
 import io.reactivex.rxjava3.annotations.NonNull;

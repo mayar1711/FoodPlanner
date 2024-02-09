@@ -6,6 +6,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import com.example.foodplanner.model.data.Meal;
+import com.example.foodplanner.model.data.MealPlane;
 import java.util.List;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
@@ -17,5 +18,14 @@ public interface MealDao {
     Completable insertProductToFavorite(Meal meal);
     @Delete
     void deleteProductFromFavorite(Meal meal);
-
+    @Query("delete From meal")
+    void deleteAllFav();
+    @Query("Select * from plane")
+    Flowable<List<MealPlane>> getAllMealPlane();
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    Completable insertMealToPlane(MealPlane meal);
+    @Delete
+    void deleteMealFromPlane(MealPlane meal);
+    @Query("delete From plane")
+    void deleteAllPlane();
 }

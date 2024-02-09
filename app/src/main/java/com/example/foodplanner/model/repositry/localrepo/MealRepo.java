@@ -1,6 +1,7 @@
-package com.example.foodplanner.model.repositry;
+package com.example.foodplanner.model.repositry.localrepo;
 
 import com.example.foodplanner.model.data.Meal;
+import com.example.foodplanner.model.data.MealPlane;
 import com.example.foodplanner.model.response.MealResponse;
 
 import java.util.List;
@@ -14,4 +15,8 @@ public interface MealRepo {
     Completable insertProductToFavorite(Meal meal);
     void deleteFavoriteProduct(Meal meal);
     Flowable<List<Meal>> getFavProducts();
+    Completable insertMealToPlane(MealPlane meal);
+    void deleteMealPlane(MealPlane meal);
+    Flowable<List<MealPlane>> getPlaneMeal();
+
 }

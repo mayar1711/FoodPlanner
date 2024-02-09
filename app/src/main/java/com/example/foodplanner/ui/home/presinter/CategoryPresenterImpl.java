@@ -1,7 +1,7 @@
 package com.example.foodplanner.ui.home.presinter;
 
 
-import com.example.foodplanner.model.repositry.RepositoryInterface;
+import com.example.foodplanner.model.repositry.remoterepo.RepositoryInterface;
 import com.example.foodplanner.model.response.CategoryResponse;
 import com.example.foodplanner.ui.home.view.CategoryAdapter;
 

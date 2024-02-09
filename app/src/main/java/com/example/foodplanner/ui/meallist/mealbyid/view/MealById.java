@@ -1,5 +1,6 @@
 package com.example.foodplanner.ui.meallist.mealbyid.view;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,24 +14,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.foodplanner.R;
-import com.example.foodplanner.model.data.Category;
 import com.example.foodplanner.model.data.GetArrayFromMeal;
 import com.example.foodplanner.model.data.Meal;
+import com.example.foodplanner.model.data.MealPlane;
 import com.example.foodplanner.model.network.ApiClient;
-import com.example.foodplanner.model.repositry.RepositoryImpl;
+import com.example.foodplanner.model.repositry.localrepo.MealRepoImp;
+import com.example.foodplanner.model.repositry.remoterepo.RepositoryImpl;
+import com.example.foodplanner.model.repositry.localrepo.MealLocalDatasourceImp;
 import com.example.foodplanner.ui.mealdetail.presinter.GetIdFromYoutubeUrl;
-import com.example.foodplanner.ui.mealdetail.view.MealIngredientsAdapter;
-import com.example.foodplanner.ui.meallist.mealbyid.presenter.MealByIdPresenter;
 import com.example.foodplanner.ui.meallist.mealbyid.presenter.MealByIdPresenterImp;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MealById extends Fragment implements MealByIdView {
      private MealByIdPresenterImp presenter;
@@ -44,12 +48,15 @@ public class MealById extends Fragment implements MealByIdView {
     private YouTubePlayer youTubePlayer;
     private RecyclerView recyclerView;
     private MealByIdIngredientsAdapter ingredientsAdapter;
-
+    private ImageView plane;
+    private Calendar selectedDateCalendar;
+    String date;
+    Meal meal;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter=new MealByIdPresenterImp(new RepositoryImpl(ApiClient.getApiService()), this);
+        presenter=new MealByIdPresenterImp(new RepositoryImpl(ApiClient.getApiService()), this, MealRepoImp.getInstance(MealLocalDatasourceImp.getInstance(requireContext())));
 
     }
 
@@ -58,7 +65,7 @@ public class MealById extends Fragment implements MealByIdView {
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_meal_by_id, container, false);
         ingredientsAdapter = new MealByIdIngredientsAdapter(new ArrayList<>());
-        Meal meal=(Meal) getArguments().getSerializable ("meal");
+        meal=(Meal) getArguments().getSerializable ("meal");
         Bundle bundle = getArguments();
         if (bundle != null && bundle.containsKey("meal")) {
             Log.d("MealListFragment ById", "Category: " + meal);
@@ -67,6 +74,7 @@ public class MealById extends Fragment implements MealByIdView {
         textViewMealName = view.findViewById(R.id.txtViewMealNameItemDetails);
         mealImage=view.findViewById(R.id.mealImage);
         categoryName=view.findViewById(R.id.tv_meal_category);
+        plane = view.findViewById(R.id.imageViewAddToCalendarItemDetails);
         addToFav=view.findViewById(R.id.imageViewAddToFavITemDetails);
         placeholder=view.findViewById(R.id.textViewProcedures);
         area=view.findViewById(R.id.textViewMealCountryItemDetails);
@@ -76,7 +84,12 @@ public class MealById extends Fragment implements MealByIdView {
         linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView.setAdapter(ingredientsAdapter);
         recyclerView.setLayoutManager(linearLayoutManager);
-
+        addToFav.setOnClickListener(v -> {
+            addProductToFav(meal);
+        });
+        plane.setOnClickListener(v -> {
+            showDatePickerDialog();
+        });
         player=view.findViewById(R.id.ytPlayer);
         player.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
@@ -88,9 +101,41 @@ public class MealById extends Fragment implements MealByIdView {
         return view;
     }
 
+    private void showDatePickerDialog() {
+        final Calendar currentDateCalendar = Calendar.getInstance();
+        int year = currentDateCalendar.get(Calendar.YEAR);
+        int month = currentDateCalendar.get(Calendar.MONTH);
+        int dayOfMonth = currentDateCalendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(),
+                (view, year1, monthOfYear, dayOfMonth1) -> {
+                    selectedDateCalendar = Calendar.getInstance();
+                    selectedDateCalendar.set(year1, monthOfYear, dayOfMonth1);
+                    handleDateSelection(selectedDateCalendar.getTime());
+                },
+                year, month, dayOfMonth);
+        datePickerDialog.getDatePicker().setMinDate(currentDateCalendar.getTimeInMillis());
+        datePickerDialog.show();
+    }
+    private void handleDateSelection(Date date) {
+        this.date = date.toString();
+        Toast.makeText(requireActivity(), "date" +date, Toast.LENGTH_SHORT).show();
+        MealPlane mealPlane = new MealPlane();
+        mealPlane.setMealData(meal);
+        addMealPlane(mealPlane);
+    }
+
+    @Override
+    public void addMealPlane(MealPlane mealPlane) {
+        mealPlane.setDate(date);
+        presenter.addMealPlane(mealPlane);
+        Log.i("TAG", "addMealPlane: "+mealPlane);
+        Toast.makeText(requireActivity(), "meal added to plane", Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public void showMealById(Meal meal) {
+        this.meal=meal;
         getActivity().runOnUiThread(() -> {
             textViewMealName.setText(meal.getStrMeal());
             categoryName.setText(meal.getStrCategory());
@@ -117,6 +162,24 @@ public class MealById extends Fragment implements MealByIdView {
     public void showListError(String error) {
 
     }
+
+    @Override
+    public void addProductToFav(Meal meal) {
+        presenter.addProductToFav(meal);
+    }
+
+    @Override
+    public void onInsertSuccess() {
+        Toast.makeText(requireActivity(), "meal added to favorites", Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onInsertError(String errorMessage) {
+        Toast.makeText(requireActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+        Log.i("TAG", "onInsertError: "+errorMessage);
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
