@@ -82,5 +82,17 @@ public class MealLocalDatasourceImp implements MealLocalDatasource{
     public LiveData<List<Meal>> getProducts() {
         return meals;
     }
+    @Override
+    public Completable deleteAllMeals() {
+        return mealDao.deleteAllMeals()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 
+    @Override
+    public Completable deleteAllPlanes() {
+        return mealDao.deleteAllPlanes()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 }

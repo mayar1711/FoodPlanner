@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import com.example.foodplanner.R;
 import com.example.foodplanner.model.data.Meal;
+import com.example.foodplanner.model.firebase.AuthRepositoryImp;
 import com.example.foodplanner.model.repositry.localrepo.MealRepoImp;
 import com.example.foodplanner.model.repositry.localrepo.MealLocalDatasourceImp;
 import com.example.foodplanner.ui.favorite.presenter.FavMeal;
@@ -92,7 +93,9 @@ public class FavoriteFragment extends Fragment implements FavMealView ,OnClickLi
     public void onGetAllFavoriteProductsError(String errorMessage) {
         Toast.makeText(requireActivity(), "Error: " + errorMessage, Toast.LENGTH_SHORT).show();
     }
-
+    public void handleLogout() {
+        AuthRepositoryImp.getInstance().signOut();
+    }
     @Override
     public void onClickMeal(Meal meal) {
         Bundle bundle = new Bundle();

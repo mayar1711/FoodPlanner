@@ -1,5 +1,6 @@
 package com.example.foodplanner.ui.home.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.utils.widget.ImageFilterButton;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -19,9 +21,13 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.foodplanner.R;
 import com.example.foodplanner.model.data.Category;
 import com.example.foodplanner.model.data.Meal;
+import com.example.foodplanner.model.firebase.AuthRepositoryImp;
 import com.example.foodplanner.model.network.ApiClient;
 import com.example.foodplanner.model.network.ApiService;
 import com.example.foodplanner.model.repositry.remoterepo.RepositoryImpl;
+import com.example.foodplanner.ui.HomeActivity;
+import com.example.foodplanner.ui.authentication.MainActivity;
+import com.example.foodplanner.ui.favorite.view.FavoriteFragment;
 import com.example.foodplanner.ui.home.presinter.CategoryPresenter;
 import com.example.foodplanner.ui.home.presinter.CategoryPresenterImpl;
 import com.example.foodplanner.ui.home.presinter.MealPresenter;
@@ -46,6 +52,8 @@ public class HomeFragment extends Fragment implements OnCategoryClickListener, C
     private CardView mealRandom ;
     private Disposable randomMeaDisposable;
     private Disposable categoryDisposable;
+
+    private ImageFilterButton logout;
 
 
     private static final String TAG ="home ";
@@ -89,7 +97,14 @@ public class HomeFragment extends Fragment implements OnCategoryClickListener, C
         categoryPresenter.getCategories();
         presenter = new MealPresenterImpl(new RepositoryImpl(apiService),this);
         presenter.getMealList();
-
+        logout=view.findViewById(R.id.logout);
+        logout.setOnClickListener(v -> {
+            FavoriteFragment favoriteFragment= new FavoriteFragment();
+            favoriteFragment.handleLogout();
+            Intent intent = new Intent(requireActivity(), MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        });
     }
     @Override
     public void onClickCategory(Category category) {

@@ -3,8 +3,11 @@ package com.example.foodplanner.model.firebase;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.example.foodplanner.R;
+import com.example.foodplanner.model.repositry.localrepo.MealLocalDatasourceImp;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -28,9 +31,9 @@ public class AuthRepositoryImp implements AuthRepository {
     private static final int RC_SIGN_IN = 9001;
     private AuthListener listener;
     private Activity activity;
-
+    private MealLocalDatasourceImp mealLocalDatasourceImp;
     public AuthRepositoryImp(Context context, Activity activity, AuthListener listener) {
-        firebaseAuth = FirebaseAuth.getInstance();
+        this.firebaseAuth = FirebaseAuth.getInstance();
         this.context = context;
         this.activity = activity; // Initialize activity
         this.listener = listener; // Assign the listener
@@ -39,12 +42,16 @@ public class AuthRepositoryImp implements AuthRepository {
                 .requestEmail()
                 .build();
         googleSignInClient = GoogleSignIn.getClient(context, gso);
+       this.mealLocalDatasourceImp = MealLocalDatasourceImp.getInstance(context);
     }
     private FireBaseAuthWrapper fireBaseAuthWrapper;
 
     private AuthRepositoryImp()
      {
+         this.firebaseAuth = FirebaseAuth.getInstance();
          this.fireBaseAuthWrapper=FireBaseAuthWrapper.getInstance();
+         this. mealLocalDatasourceImp = MealLocalDatasourceImp.getInstance(context);
+
      }
     private static AuthRepositoryImp instance;
     public static synchronized AuthRepositoryImp getInstance()
@@ -74,11 +81,6 @@ public class AuthRepositoryImp implements AuthRepository {
         Intent signInIntent = googleSignInClient.getSignInIntent();
         // Pass the listener to onActivityResult method
         activity.startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
-    private void saveUserEmailToDatabase(String email) {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
-        String encodedEmail = encodeEmailForFirebase(email);
-        databaseReference.child(encodedEmail).setValue(email);
     }
 
     private String encodeEmailForFirebase(String email) {
@@ -119,5 +121,26 @@ public class AuthRepositoryImp implements AuthRepository {
                 .addOnSuccessListener(authResult -> listener.onSuccess())
                 .addOnFailureListener(e -> listener.onFailure(e.getMessage()));
     }
+    @Override
+    public void signOut() {
+        if (firebaseAuth != null) {
+            firebaseAuth.signOut();
+            mealLocalDatasourceImp.deleteAllMeals().subscribe(() -> {
 
+            }, throwable -> {
+
+            });
+
+            mealLocalDatasourceImp.deleteAllPlanes().subscribe(() -> {
+
+            }, throwable -> {
+
+            });
+
+            Log.i("TAG", "signOut:Signed out successfully ");
+        } else {
+            Log.i("TAG", "signOut: Failed to sign out. Firebase Auth is null.");
+
+        }
+    }
 }

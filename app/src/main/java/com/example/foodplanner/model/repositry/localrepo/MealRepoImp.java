@@ -7,9 +7,11 @@ import com.example.foodplanner.model.response.MealResponse;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MealRepoImp implements MealRepo {
     private MealLocalDatasource mealLocalDatasource;
@@ -71,8 +73,6 @@ public class MealRepoImp implements MealRepo {
 
     @Override
     public void insertProductToFavoriteRemote(Meal meal) {
-        // Assuming you have access to the user's email address
-        String userEmail = "user@example.com"; // Replace this with the actual user's email
         remoteDatasourceImp.insertProductToFavorite( meal)
                 .subscribe(
                         () -> {
@@ -85,7 +85,6 @@ public class MealRepoImp implements MealRepo {
     @Override
     public void insertMealToPlaneRemote(MealPlane mealPlane) {
         // Assuming you have access to the user's email address
-        String userEmail = "user@example.com"; // Replace this with the actual user's email
         remoteDatasourceImp.insertMealToPlan(mealPlane)
                 .subscribe(
                         () -> {

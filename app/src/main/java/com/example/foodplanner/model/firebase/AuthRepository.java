@@ -7,4 +7,5 @@ public interface AuthRepository {
     void signUpWithEmail(String email, String password, AuthListener listener);
     void signUpWithGoogle(AuthListener listener);
     void getUserEmail(String userId, EmailListener listener);
+    void signOut();
 }

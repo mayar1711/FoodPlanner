@@ -87,10 +87,7 @@ public class SignUpFragment extends Fragment implements SignUp , AuthListener {
     private String encodeEmailForFirebase(String email) {
       return email.replace(".", ",");
     }
-    private String getKeyFromEmail(TextInputEditText emailEditText) {
-        String email = emailEditText.getText().toString().trim();
-        return email.replace(".", ",");
-    }
+
     private boolean isValidEmail(String email) {
         if (email.isEmpty()) {
             etEmail.setError("Email is required");

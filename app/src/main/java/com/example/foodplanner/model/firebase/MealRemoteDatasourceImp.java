@@ -3,7 +3,6 @@ package com.example.foodplanner.model.firebase;
 import com.example.foodplanner.model.data.Meal;
 import com.example.foodplanner.model.data.MealPlane;
 import com.google.firebase.auth.FirebaseAuth;
-
 import io.reactivex.rxjava3.core.Completable;
 
 public class MealRemoteDatasourceImp implements MealRemoteDatasource {
@@ -23,7 +22,6 @@ public class MealRemoteDatasourceImp implements MealRemoteDatasource {
         return Completable.complete();
     }
     private String encodeEmailForFirebase(String email) {
-        // Replace characters not allowed in Firebase Database paths
         return email.replace(".", ",");
     }
     @Override
