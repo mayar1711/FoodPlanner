@@ -45,7 +45,8 @@ public class FirebaseDatabaseHelper {
         return email.replace(".", ",");
     }
 
-    public void getAllFavorite( String encodeEmail , Context context) {
+    public void getAllFavorite( Context context) {
+        String encodeEmail = encodeEmailForFirebase(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         databaseReference.child("favMeal")
                 .child(encodeEmail)
                 .addValueEventListener(new ValueEventListener() {
@@ -69,7 +70,8 @@ public class FirebaseDatabaseHelper {
                 });
     }
 
-    public void getAllFavoriteWeelPlan(  String encodeEmail , Context context) {
+    public void getAllFavoriteWeelPlan( Context context) {
+        String encodeEmail = encodeEmailForFirebase(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         databaseReference.child("planMeal")
                 .child(encodeEmail)
                 .addValueEventListener(new ValueEventListener() {

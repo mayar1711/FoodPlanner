@@ -17,10 +17,14 @@ import android.widget.Toast;
 import com.example.foodplanner.R;
 import com.example.foodplanner.model.data.Meal;
 import com.example.foodplanner.model.firebase.AuthRepositoryImp;
+import com.example.foodplanner.model.firebase.FirebaseDatabaseHelper;
 import com.example.foodplanner.model.repositry.localrepo.MealRepoImp;
 import com.example.foodplanner.model.repositry.localrepo.MealLocalDatasourceImp;
 import com.example.foodplanner.ui.favorite.presenter.FavMeal;
 import com.example.foodplanner.ui.favorite.presenter.FavMealImp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +62,11 @@ public class FavoriteFragment extends Fragment implements FavMealView ,OnClickLi
                 ),
                 this
         );
-
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(currentUser!=null) {
+            new FirebaseDatabaseHelper().getAllFavorite(requireContext());
+            new FirebaseDatabaseHelper().getAllFavoriteWeelPlan(requireContext());
+        }
         recyclerView = view.findViewById(R.id.recycler1_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -79,7 +87,6 @@ public class FavoriteFragment extends Fragment implements FavMealView ,OnClickLi
 
     @Override
     public void onGetAllFavoriteProducts(List<Meal> favoriteMeal) {
-        Log.i("TAG", "Received data: " + favoriteMeal.toString());
         Log.i("TAG", "onGetAllFavoriteProducts: "+favoriteMeal.get(0).getStrMeal());
         if(favoriteMeal.size()!=0)
         {
@@ -89,20 +96,22 @@ public class FavoriteFragment extends Fragment implements FavMealView ,OnClickLi
         myAdapter.changeData(favoriteMeal);
         myAdapter.notifyDataSetChanged();
         Log.i("TAG", "onGetAllFavoriteProducts: " + favoriteMeal.size());
-
     }
 
     @Override
     public void onGetAllFavoriteProductsError(String errorMessage) {
         Toast.makeText(requireActivity(), "Error: " + errorMessage, Toast.LENGTH_SHORT).show();
     }
-    public void handleLogout() {
-        AuthRepositoryImp.getInstance().signOut();
-    }
+
     @Override
     public void onClickMeal(Meal meal) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("meal", meal);
-        Navigation.findNavController(requireView()).navigate(R.id.action_navigation_favorite_to_mealDetailFragment,bundle);
+        if (requireActivity() != null) {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("meal", meal);
+            Navigation.findNavController(requireView()).navigate(R.id.action_navigation_favorite_to_mealDetailFragment, bundle);
+        } else {
+            Log.e("FavoriteFragment", "Fragment is not attached to an activity");
+        }
     }
+
 }

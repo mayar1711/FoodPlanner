@@ -104,8 +104,7 @@ public class HomeFragment extends Fragment implements OnCategoryClickListener, C
         presenter.getMealList();
         logout=view.findViewById(R.id.logout);
         logout.setOnClickListener(v -> {
-            FavoriteFragment favoriteFragment= new FavoriteFragment();
-            favoriteFragment.handleLogout();
+            AuthRepositoryImp.getInstance().signOut();
             Intent intent = new Intent(requireActivity(), MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);

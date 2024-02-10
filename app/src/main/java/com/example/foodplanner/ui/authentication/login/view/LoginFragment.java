@@ -69,10 +69,7 @@ public class LoginFragment extends Fragment implements LoginView , AuthListener 
             if (isValidEmail(email) && isValidPassword(password)) {
                 presenter.signInWithEmail(email, password);
                 getUserEmail(email, email -> Log.i("TAG", "onEmailReceived: " + email));
-                String name = encodeEmailForFirebase(email);
-                new FirebaseDatabaseHelper().getAllFavorite(name,requireContext());
-                new FirebaseDatabaseHelper().getAllFavoriteWeelPlan(name , requireContext());
-            }
+          }
         });
         return view;
     }

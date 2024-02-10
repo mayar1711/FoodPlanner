@@ -1,6 +1,9 @@
 package com.example.foodplanner.ui.mealdetail.view;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,9 +26,13 @@ import com.example.foodplanner.model.data.Meal;
 import com.example.foodplanner.model.data.MealPlane;
 import com.example.foodplanner.model.repositry.localrepo.MealRepoImp;
 import com.example.foodplanner.model.repositry.localrepo.MealLocalDatasourceImp;
+import com.example.foodplanner.ui.authentication.MainActivity;
 import com.example.foodplanner.ui.mealdetail.presinter.GetIdFromYoutubeUrl;
 import com.example.foodplanner.ui.mealdetail.presinter.MealDetailContractPresenter;
 import com.example.foodplanner.ui.mealdetail.presinter.MealDetailPresenter;
+import com.example.foodplanner.ui.splash.SplashScreen;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
@@ -86,16 +93,40 @@ public class MealDetailFragment extends Fragment implements MealDetailContractVi
         MealPlane mealPlane = new MealPlane();
         mealPlane.setMealData(meal);
         presenter.setMealData(meal);
-
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         addToFav.setOnClickListener(v -> {
+            if (currentUser!=null)
             addProductToFav(meal);
+            else showAuthenticationAlert();
         });
 
         plane.setOnClickListener(v -> {
+            if (currentUser!=null)
             showDatePickerDialog();
+            else showAuthenticationAlert();
             });
 
         return view;
+    }
+    private void showAuthenticationAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Authentication Required")
+                .setMessage("You need to log in to perform this action.")
+                .setPositiveButton("Log In", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent(requireActivity(), MainActivity.class);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .create()
+                .show();
     }
 
     @Override
