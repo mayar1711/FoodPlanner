@@ -62,11 +62,7 @@ public class FavoriteFragment extends Fragment implements FavMealView ,OnClickLi
                 ),
                 this
         );
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if(currentUser!=null) {
-            new FirebaseDatabaseHelper().getAllFavorite(requireContext());
-            new FirebaseDatabaseHelper().getAllFavoriteWeelPlan(requireContext());
-        }
+
         recyclerView = view.findViewById(R.id.recycler1_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
