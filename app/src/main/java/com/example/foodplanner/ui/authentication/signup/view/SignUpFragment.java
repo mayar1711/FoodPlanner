@@ -140,4 +140,5 @@ public class SignUpFragment extends Fragment implements SignUp , AuthListener {
         // Call saveUserEmailToDatabase after successful signup
        // saveUserEmailToDatabase(etEmail.getText().toString().trim());
     }
+
 }

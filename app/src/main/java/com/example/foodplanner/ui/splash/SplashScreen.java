@@ -12,6 +12,7 @@ import com.example.foodplanner.ui.HomeActivity;
 import com.example.foodplanner.ui.authentication.MainActivity;
 import com.example.foodplanner.ui.onbording.OnBording;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SplashScreen extends AppCompatActivity {
     private static int SPLASH_TIME_OUT = 3000;
@@ -21,7 +22,7 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        firebaseAuth=FirebaseAuth.getInstance();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -36,7 +37,7 @@ public class SplashScreen extends AppCompatActivity {
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
 
-                } else if (firebaseAuth!=null) {
+                } else if (currentUser!=null) {
                     Intent intent = new Intent(SplashScreen.this, HomeActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);

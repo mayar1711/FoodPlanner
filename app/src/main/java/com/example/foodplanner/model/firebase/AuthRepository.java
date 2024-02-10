@@ -8,4 +8,5 @@ public interface AuthRepository {
     void signUpWithGoogle(AuthListener listener);
     void getUserEmail(String userId, EmailListener listener);
     void signOut();
+    void handleGoogleSignInResult(Intent data);
 }

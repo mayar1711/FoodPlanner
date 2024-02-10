@@ -1,5 +1,6 @@
 package com.example.foodplanner.model.firebase;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -63,6 +64,42 @@ public class AuthRepositoryImp implements AuthRepository {
         return instance;
     }
     @Override
+    public void signUpWithGoogle(AuthListener listener) {
+        Intent signInIntent = googleSignInClient.getSignInIntent();
+        activity.startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    @Override
+    public void handleGoogleSignInResult(Intent data) {
+        Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+        try {
+            GoogleSignInAccount account = task.getResult(ApiException.class);
+            if (account != null) {
+                firebaseAuthWithGoogle(account);
+            }
+        } catch (ApiException e) {
+            Log.w("TAG", "Google sign in failed", e);
+            listener.onFailure("Google sign in failed: " + e.getMessage());
+        }
+    }
+
+    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+        firebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(activity, task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d("TAG", "signInWithCredential:success");
+                        FirebaseUser user = firebaseAuth.getCurrentUser();
+                        listener.onSuccess();
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w("TAG", "signInWithCredential:failure", task.getException());
+                        listener.onFailure("Authentication failed: " + task.getException().getMessage());
+                    }
+                });
+    }
+    @Override
     public void signInWithEmail(String email, String password, AuthListener listener) {
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnSuccessListener(authResult -> listener.onSuccess())
@@ -76,12 +113,6 @@ public class AuthRepositoryImp implements AuthRepository {
                 .addOnFailureListener(e -> listener.onFailure(e.getMessage()));
     }
 
-    @Override
-    public void signUpWithGoogle(AuthListener listener) {
-        Intent signInIntent = googleSignInClient.getSignInIntent();
-        // Pass the listener to onActivityResult method
-        activity.startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
 
     private String encodeEmailForFirebase(String email) {
         return email.replace(".", ",");
@@ -99,28 +130,11 @@ public class AuthRepositoryImp implements AuthRepository {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                // Handle error
+
             }
         });
     }
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account);
-            } catch (ApiException e) {
-                listener.onFailure(e.getMessage());
-            }
-        }
-    }
-
-    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
-        firebaseAuth.signInWithCredential(credential)
-                .addOnSuccessListener(authResult -> listener.onSuccess())
-                .addOnFailureListener(e -> listener.onFailure(e.getMessage()));
-    }
+    @SuppressLint("CheckResult")
     @Override
     public void signOut() {
         if (firebaseAuth != null) {
@@ -128,15 +142,12 @@ public class AuthRepositoryImp implements AuthRepository {
             mealLocalDatasourceImp.deleteAllMeals().subscribe(() -> {
 
             }, throwable -> {
-
             });
-
             mealLocalDatasourceImp.deleteAllPlanes().subscribe(() -> {
 
             }, throwable -> {
 
             });
-
             Log.i("TAG", "signOut:Signed out successfully ");
         } else {
             Log.i("TAG", "signOut: Failed to sign out. Firebase Auth is null.");
