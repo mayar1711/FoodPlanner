@@ -17,9 +17,11 @@ import com.example.foodplanner.R;
 import com.example.foodplanner.model.firebase.AuthListener;
 import com.example.foodplanner.model.firebase.AuthRepositoryImp;
 import com.example.foodplanner.model.firebase.EmailListener;
+import com.example.foodplanner.model.firebase.FirebaseDatabaseHelper;
 import com.example.foodplanner.ui.HomeActivity;
 import com.example.foodplanner.ui.authentication.login.Presenter.LoginPresenterImp;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -66,9 +68,10 @@ public class LoginFragment extends Fragment implements LoginView , AuthListener 
 
             if (isValidEmail(email) && isValidPassword(password)) {
                 presenter.signInWithEmail(email, password);
-
-
                 getUserEmail(email, email -> Log.i("TAG", "onEmailReceived: " + email));
+                String name = encodeEmailForFirebase(email);
+                new FirebaseDatabaseHelper().getAllFavorite(name,requireContext());
+                new FirebaseDatabaseHelper().getAllFavoriteWeelPlan(name , requireContext());
             }
         });
         return view;

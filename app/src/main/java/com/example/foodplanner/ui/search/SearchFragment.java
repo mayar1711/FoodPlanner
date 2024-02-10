@@ -1,5 +1,6 @@
 package com.example.foodplanner.ui.search;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,7 +39,10 @@ import java.io.Serializable;
 import java.util.List;
 
 import io.reactivex.rxjava3.disposables.Disposable;
-
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+import android.os.Build;
 public class SearchFragment extends Fragment implements CuisineView, OnIngredientClick, IngredientView , OnCuisineClicked {
     private CuisineAdapter cuisineAdapter;
     private CuisinePresenter cuisinePresenter;
@@ -47,6 +52,7 @@ public class SearchFragment extends Fragment implements CuisineView, OnIngredien
     private RecyclerView ingrediantRecyclerView;
     private Disposable area;
     private Disposable ingredient;
+    private ImageView noInternetImageView;
     private  TextView search;
     public SearchFragment() {
         // Required empty public constructor
@@ -71,6 +77,7 @@ public class SearchFragment extends Fragment implements CuisineView, OnIngredien
         super.onViewCreated(view, savedInstanceState);
         ApiService apiService= ApiClient.getApiService();
         ingrediantRecyclerView=view.findViewById(R.id.recyclerView);
+        noInternetImageView=view.findViewById(R.id.imageView3);
         ingredientAdapter=new IngredientAdapter();
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -92,6 +99,7 @@ public class SearchFragment extends Fragment implements CuisineView, OnIngredien
             Navigation.findNavController(requireView())
                     .navigate(R.id.action_navigation_search_to_searchByNameFragment);
         });
+        checkInternetConnection();
     }
 
 
@@ -101,6 +109,29 @@ public class SearchFragment extends Fragment implements CuisineView, OnIngredien
         cuisineAdapter.notifyDataSetChanged();
     }
 
+    private void checkInternetConnection() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                Network network = connectivityManager.getActiveNetwork();
+                NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
+                if (capabilities != null && (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR))) {
+                    noInternetImageView.setVisibility(View.GONE);
+                } else {
+                    noInternetImageView.setVisibility(View.VISIBLE);
+                    search.setVisibility(View.GONE);
+                }
+            } else {
+                if (connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected()) {
+                    noInternetImageView.setVisibility(View.GONE);
+                } else {
+                    noInternetImageView.setVisibility(View.VISIBLE);
+                }
+            }
+        } else {
+            noInternetImageView.setVisibility(View.VISIBLE);
+        }
+    }
     @Override
     public void showIngrediant(List<Ingredient> ingredients) {
         ingredientAdapter.setIngredientList(ingredients);
@@ -119,7 +150,7 @@ public class SearchFragment extends Fragment implements CuisineView, OnIngredien
 
     @Override
     public void onIngredientClick(Ingredient ingredient) {
-        Toast.makeText(requireActivity(), "Clicked ingredient: " + ingredient.getStrIngredient(), Toast.LENGTH_SHORT).show();
+       // Toast.makeText(requireActivity(), "Clicked ingredient: " + ingredient.getStrIngredient(), Toast.LENGTH_SHORT).show();
         Bundle bundle = new Bundle();
         bundle.putSerializable("ingredient", (Serializable) ingredient);
         Navigation.findNavController(requireView()).navigate(R.id.action_navigation_search_to_mealByIngradient, bundle);
@@ -140,7 +171,7 @@ public class SearchFragment extends Fragment implements CuisineView, OnIngredien
 
     @Override
     public void onCuisineClicked(Cuisine cuisine) {
-        Toast.makeText(requireActivity(), "Clicked cuisine: " + cuisine.getStrArea(), Toast.LENGTH_SHORT).show();
+     //   Toast.makeText(requireActivity(), "Clicked cuisine: " + cuisine.getStrArea(), Toast.LENGTH_SHORT).show();
         Bundle bundle = new Bundle();
         bundle.putSerializable("cuisine", (Serializable) cuisine);
         Navigation.findNavController(requireView()).navigate(R.id.action_navigation_search_to_getMealByCuisineFragment, bundle);

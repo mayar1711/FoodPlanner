@@ -1,5 +1,6 @@
 package com.example.foodplanner.ui.home.view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -32,6 +33,10 @@ import com.example.foodplanner.ui.home.presinter.CategoryPresenter;
 import com.example.foodplanner.ui.home.presinter.CategoryPresenterImpl;
 import com.example.foodplanner.ui.home.presinter.MealPresenter;
 import com.example.foodplanner.ui.home.presinter.MealPresenterImpl;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+import android.os.Build;
 
 import java.io.Serializable;
 import java.util.List;
@@ -54,6 +59,7 @@ public class HomeFragment extends Fragment implements OnCategoryClickListener, C
     private Disposable categoryDisposable;
 
     private ImageFilterButton logout;
+    private ImageView noInternetImageView;
 
 
     private static final String TAG ="home ";
@@ -63,11 +69,8 @@ public class HomeFragment extends Fragment implements OnCategoryClickListener, C
         Bundle bundle = getArguments();
         if (bundle != null && bundle.containsKey("category")) {
             Category category = (Category) bundle.getSerializable("category");
-
-            // Now you can use the 'category' object as needed
             if (category != null) {
                 String categoryName = category.getStrCategory();
-                // Do something with the category name
             }
         }
     }
@@ -85,6 +88,8 @@ public class HomeFragment extends Fragment implements OnCategoryClickListener, C
         meal=view.findViewById(R.id.tv_meal_day);
         imageView=view.findViewById(R.id.imageViewOfTheDay);
         mealRandom=view.findViewById(R.id.cardViewRandomMeal);
+        noInternetImageView=view.findViewById(R.id.imageView2);
+        checkInternetConnection();
         categoryAdapter = new CategoryAdapter();
         categoryAdapter.setClickListener(this);
         LinearLayoutManager linearLayoutManager1 =new LinearLayoutManager(requireActivity());
@@ -108,13 +113,34 @@ public class HomeFragment extends Fragment implements OnCategoryClickListener, C
     }
     @Override
     public void onClickCategory(Category category) {
-        Toast.makeText(requireActivity(), "Clicked category: " + category.getStrCategory(), Toast.LENGTH_SHORT).show();
         Bundle bundle = new Bundle();
         bundle.putSerializable("category", (Serializable) category);
         Navigation.findNavController(requireView()).navigate(R.id.action_navigation_home_to_categoryList, bundle);
     }
 
-
+    private void checkInternetConnection() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                Network network = connectivityManager.getActiveNetwork();
+                NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
+                if (capabilities != null && (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR))) {
+                    noInternetImageView.setVisibility(View.GONE);
+                } else {
+                    noInternetImageView.setVisibility(View.VISIBLE);
+                    mealRandom.setVisibility(View.GONE);
+                }
+            } else {
+             if (connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected()) {
+                    noInternetImageView.setVisibility(View.GONE);
+                } else {
+                    noInternetImageView.setVisibility(View.VISIBLE);
+                }
+            }
+        } else {
+            noInternetImageView.setVisibility(View.VISIBLE);
+        }
+    }
     @Override
     public void showCategories(List<Category> categories) {
         categoryAdapter.setCategories(categories);
@@ -137,7 +163,6 @@ public class HomeFragment extends Fragment implements OnCategoryClickListener, C
                     .load(imageUrl)
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(imageView);
-            Toast.makeText(requireActivity(), mealOfTheDay.getStrMeal(), Toast.LENGTH_SHORT).show();
             mealRandom.setOnClickListener(v -> {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("meal", meals.get(0));

@@ -122,7 +122,7 @@ public class MealById extends Fragment implements MealByIdView {
     private void handleDateSelection(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         this.date = sdf.format(date);
-        Toast.makeText(requireActivity(), "date" +date, Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(requireActivity(), "date" +date, Toast.LENGTH_SHORT).show();
         MealPlane mealPlane = new MealPlane();
         mealPlane.setMealData(meal);
         addMealPlane(mealPlane);

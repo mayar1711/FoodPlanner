@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 import com.example.foodplanner.R;
 import com.example.foodplanner.model.data.Meal;
@@ -27,14 +28,13 @@ public class FavoriteFragment extends Fragment implements FavMealView ,OnClickLi
     private RecyclerView recyclerView;
     private FavMeal favMeal;
     private FavoriteMealAdapter myAdapter;
+    boolean isnull ;
     public FavoriteFragment() {
 
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-       // favMeal.getProducts();
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -47,20 +47,17 @@ public class FavoriteFragment extends Fragment implements FavMealView ,OnClickLi
         super.onAttach(context);
 
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_favorite, container, false);
+        View view = inflater.inflate(R.layout.fragment_favorite, container, false);
         myAdapter = new FavoriteMealAdapter(new ArrayList<>());
-        favMeal= FavMealImp.getInstance(
+        favMeal = FavMealImp.getInstance(
                 MealRepoImp.getInstance(
                         MealLocalDatasourceImp.getInstance(getContext())
                 ),
                 this
         );
-
-//        myAdapter = new FavoriteMealAdapter(new ArrayList<>());
 
         recyclerView = view.findViewById(R.id.recycler1_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -68,12 +65,13 @@ public class FavoriteFragment extends Fragment implements FavMealView ,OnClickLi
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(myAdapter);
         myAdapter.onDeleteClickListener = this::deleteFavProduct;
-
         myAdapter.setListener(this);
         favMeal.getProducts(this);
 
+
         return view;
     }
+
     @Override
     public void deleteFavProduct(Meal meal) {
         favMeal.deleteFavoriteProduct(meal);
@@ -83,6 +81,11 @@ public class FavoriteFragment extends Fragment implements FavMealView ,OnClickLi
     public void onGetAllFavoriteProducts(List<Meal> favoriteMeal) {
         Log.i("TAG", "Received data: " + favoriteMeal.toString());
         Log.i("TAG", "onGetAllFavoriteProducts: "+favoriteMeal.get(0).getStrMeal());
+        if(favoriteMeal.size()!=0)
+        {
+            isnull=true;
+        }
+        else isnull=false;
         myAdapter.changeData(favoriteMeal);
         myAdapter.notifyDataSetChanged();
         Log.i("TAG", "onGetAllFavoriteProducts: " + favoriteMeal.size());

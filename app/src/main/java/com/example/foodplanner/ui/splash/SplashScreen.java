@@ -14,7 +14,7 @@ import com.example.foodplanner.ui.onbording.OnBording;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SplashScreen extends AppCompatActivity {
-    private static int SPLASH_TIME_OUT = 5000;
+    private static int SPLASH_TIME_OUT = 3000;
     SharedPreferences mSharedPreferences;
     private FirebaseAuth firebaseAuth;
     @Override

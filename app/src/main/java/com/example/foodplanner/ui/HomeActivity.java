@@ -1,9 +1,11 @@
 package com.example.foodplanner.ui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.foodplanner.R;
+import com.example.foodplanner.model.firebase.FirebaseDatabaseHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -13,6 +15,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.foodplanner.databinding.ActivityHomeBinding;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -34,6 +37,7 @@ public class HomeActivity extends AppCompatActivity {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_home); // Initialize the field here
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             if (destination.getId() == R.id.searchByNameFragment ||
                     destination.getId() == R.id.mealDetailFragment ||
@@ -44,7 +48,7 @@ public class HomeActivity extends AppCompatActivity {
                 toolbar.setVisibility(View.GONE);
                 navView.setVisibility(View.GONE);
             } else {
-                toolbar.setVisibility(View.VISIBLE);
+                toolbar.setVisibility(View.GONE);
                 navView.setVisibility(View.VISIBLE);
             }
         });

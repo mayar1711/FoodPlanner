@@ -122,7 +122,7 @@ public class MealDetailFragment extends Fragment implements MealDetailContractVi
     private void handleDateSelection(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         this.date = sdf.format(date);
-        Toast.makeText(requireActivity(), "date" +date, Toast.LENGTH_SHORT).show();
+     //   Toast.makeText(requireActivity(), "date" +date, Toast.LENGTH_SHORT).show();
         Meal meal = (Meal) getArguments().getSerializable("meal");
         MealPlane mealPlane = new MealPlane();
         mealPlane.setMealData(meal);
@@ -144,7 +144,6 @@ public class MealDetailFragment extends Fragment implements MealDetailContractVi
         Log.i("TAG", "displayMealDetails: "+meal.getStrCategory());
         area.setText(meal.strArea);
         Log.i("TAG", "displayMealDetails: "+meal.getStrArea());
-
         placeholder.setText(meal.strInstructions);
         Log.i("TAG", "displayMealDetails: "+meal.strInstructions);
         ingredientsAdapter.setList(GetArrayFromMeal.getArrayList(meal));
@@ -179,7 +178,7 @@ public class MealDetailFragment extends Fragment implements MealDetailContractVi
 
     @Override
     public void onInsertError(String errorMessage) {
-        Toast.makeText(requireActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+     //   Toast.makeText(requireActivity(), errorMessage, Toast.LENGTH_SHORT).show();
         Log.i("TAG", "onInsertError: "+errorMessage);
 
     }

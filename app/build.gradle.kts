@@ -84,5 +84,7 @@ dependencies {
     //
     implementation ("com.google.firebase:firebase-database:20.0.1")
 
+    implementation ("com.google.android.gms:play-services-auth:19.0.0") // or the latest version
+
 
 }

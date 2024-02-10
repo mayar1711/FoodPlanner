@@ -74,7 +74,7 @@ public class MealByIngradient extends Fragment implements IngredientListView , O
 
     @Override
     public void onClickIngredient(Meal meal) {
-        Toast.makeText(requireActivity(), "Clicked Ingredient: " + meal.getStrMeal(), Toast.LENGTH_SHORT).show();
+     //   Toast.makeText(requireActivity(), "Clicked Ingredient: " + meal.getStrMeal(), Toast.LENGTH_SHORT).show();
         Bundle bundle = new Bundle();
         bundle.putSerializable("meal", (Serializable) meal);
         Navigation.findNavController(requireView()).navigate(R.id.action_mealByIngradient_to_mealById,bundle);

@@ -82,7 +82,7 @@ public class SearchByNameFragment extends Fragment implements SearchByNameView ,
 
     @Override
     public void onClickMeal(Meal meal) {
-        Toast.makeText(requireActivity(), "Clicked meal: " + meal.getStrMeal(), Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(requireActivity(), "Clicked meal: " + meal.getStrMeal(), Toast.LENGTH_SHORT).show();
         Bundle bundle = new Bundle();
         bundle.putSerializable("meal", (Serializable) meal);
         Navigation.findNavController(requireView()).navigate(R.id.action_searchByNameFragment_to_mealById,bundle);

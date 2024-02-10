@@ -32,13 +32,6 @@ public class CategoryList extends Fragment  implements MealListView ,OnItemClick
         super.onCreate(savedInstanceState);
         adapter = new MealListAdapter();
         presenter = new MealListPresenter(new RepositoryImpl(ApiClient.getApiService()), this);
-/*        Bundle bundle = getArguments();
-        if (bundle != null && bundle.containsKey("meal")) {
-            Meal meal = (Meal) bundle.getSerializable("meal");
-            if (meal != null) {
-                String mealName = meal.getStrMeal();
-            }
-        }*/
     }
 
     @Override
@@ -71,7 +64,7 @@ public class CategoryList extends Fragment  implements MealListView ,OnItemClick
     }
     @Override
     public void onClickCategory(Meal meal) {
-        Toast.makeText(requireActivity(), "Clicked category: " + meal.getStrMeal(), Toast.LENGTH_SHORT).show();
+     //   Toast.makeText(requireActivity(), "Clicked category: " + meal.getStrMeal(), Toast.LENGTH_SHORT).show();
         Bundle bundle = new Bundle();
         bundle.putSerializable("meal", (Serializable) meal);
         Navigation.findNavController(requireView()).navigate(R.id.action_categoryList_to_mealById,bundle);

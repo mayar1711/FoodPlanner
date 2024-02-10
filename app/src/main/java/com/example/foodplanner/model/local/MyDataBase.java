@@ -16,17 +16,11 @@ public abstract class MyDataBase extends RoomDatabase {
     public static MyDataBase database=null;
     public abstract MealDao getproductDao();
     public static synchronized MyDataBase getInstance(Context context){
-        if (context == null) {
-            // Handle the null context appropriately, such as logging an error or throwing an exception
-            throw new IllegalArgumentException("Context cannot be null");
-        }
-
         if(database==null){
             database= Room.databaseBuilder(context.getApplicationContext(),MyDataBase.class,DATABASE_NAME)
                     .build();
         }
         return database;
     }
-
 
 }
