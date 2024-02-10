@@ -96,7 +96,7 @@ public class FavoriteFragment extends Fragment implements FavMealView ,OnClickLi
 
     @Override
     public void onGetAllFavoriteProductsError(String errorMessage) {
-        Toast.makeText(requireActivity(), "Error: " + errorMessage, Toast.LENGTH_SHORT).show();
+    //    Toast.makeText(requireActivity(), "Error: " + errorMessage, Toast.LENGTH_SHORT).show();
     }
 
     @Override
