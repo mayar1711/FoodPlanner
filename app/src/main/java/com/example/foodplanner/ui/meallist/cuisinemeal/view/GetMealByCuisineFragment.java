@@ -33,13 +33,6 @@ public class GetMealByCuisineFragment extends Fragment implements CuisineListVie
         super.onCreate(savedInstanceState);
         cuisineAdapter=new CuisineAdapter();
         presenter=new CuisinePresenterImp(new RepositoryImpl(ApiClient.getApiService()), this);
-       /* Bundle bundle = getArguments();
-        if (bundle != null && bundle.containsKey("cuisine")) {
-            Meal meal = (Meal) bundle.getSerializable("cuisine");
-            if (meal != null) {
-                String mealName = meal.getIdMeal();
-            }
-        }*/
 
     }
 
@@ -81,7 +74,7 @@ public class GetMealByCuisineFragment extends Fragment implements CuisineListVie
 
     @Override
     public void onClickCuisine(Meal meal) {
-        Toast.makeText(requireActivity(), "Clicked category: " + meal.getStrMeal(), Toast.LENGTH_SHORT).show();
+   //     Toast.makeText(requireActivity(), "Clicked category: " + meal.getStrMeal(), Toast.LENGTH_SHORT).show();
         Bundle bundle = new Bundle();
         bundle.putSerializable("meal", (Serializable) meal);
         Navigation.findNavController(requireView()).navigate(R.id.action_getMealByCuisineFragment_to_mealById,bundle);

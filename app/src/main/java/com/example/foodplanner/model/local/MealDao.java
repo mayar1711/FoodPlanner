@@ -18,14 +18,15 @@ public interface MealDao {
     Completable insertProductToFavorite(Meal meal);
     @Delete
     void deleteProductFromFavorite(Meal meal);
-    @Query("delete From meal")
-    void deleteAllFav();
     @Query("Select * from plane")
     Flowable<List<MealPlane>> getAllMealPlane();
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     Completable insertMealToPlane(MealPlane meal);
     @Delete
     void deleteMealFromPlane(MealPlane meal);
-    @Query("delete From plane")
-    void deleteAllPlane();
+    @Query("DELETE FROM meal")
+    Completable deleteAllMeals();
+
+    @Query("DELETE FROM plane")
+    Completable deleteAllPlanes();
 }

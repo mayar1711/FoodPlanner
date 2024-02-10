@@ -1,6 +1,9 @@
 package com.example.foodplanner.ui.meallist.mealbyid.view;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -26,15 +29,20 @@ import com.example.foodplanner.model.network.ApiClient;
 import com.example.foodplanner.model.repositry.localrepo.MealRepoImp;
 import com.example.foodplanner.model.repositry.remoterepo.RepositoryImpl;
 import com.example.foodplanner.model.repositry.localrepo.MealLocalDatasourceImp;
+import com.example.foodplanner.ui.authentication.MainActivity;
 import com.example.foodplanner.ui.mealdetail.presinter.GetIdFromYoutubeUrl;
 import com.example.foodplanner.ui.meallist.mealbyid.presenter.MealByIdPresenterImp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class MealById extends Fragment implements MealByIdView {
      private MealByIdPresenterImp presenter;
@@ -84,11 +92,16 @@ public class MealById extends Fragment implements MealByIdView {
         linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView.setAdapter(ingredientsAdapter);
         recyclerView.setLayoutManager(linearLayoutManager);
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         addToFav.setOnClickListener(v -> {
+            if (currentUser!=null)
             addProductToFav(meal);
+            else showAuthenticationAlert();
         });
         plane.setOnClickListener(v -> {
+            if (currentUser!=null)
             showDatePickerDialog();
+            else showAuthenticationAlert();
         });
         player=view.findViewById(R.id.ytPlayer);
         player.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
@@ -118,8 +131,9 @@ public class MealById extends Fragment implements MealByIdView {
         datePickerDialog.show();
     }
     private void handleDateSelection(Date date) {
-        this.date = date.toString();
-        Toast.makeText(requireActivity(), "date" +date, Toast.LENGTH_SHORT).show();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        this.date = sdf.format(date);
+      //  Toast.makeText(requireActivity(), "date" +date, Toast.LENGTH_SHORT).show();
         MealPlane mealPlane = new MealPlane();
         mealPlane.setMealData(meal);
         addMealPlane(mealPlane);
@@ -178,6 +192,26 @@ public class MealById extends Fragment implements MealByIdView {
     public void onInsertError(String errorMessage) {
         Toast.makeText(requireActivity(), errorMessage, Toast.LENGTH_SHORT).show();
         Log.i("TAG", "onInsertError: "+errorMessage);
+    }
+    private void showAuthenticationAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Authentication Required")
+                .setMessage("You need to log in to perform this action.")
+                .setPositiveButton("Log In", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent(requireActivity(), MainActivity.class);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .create()
+                .show();
     }
 
     @Override

@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "505418110091",
+    "firebase_url": "https://food-planner-50e46-default-rtdb.firebaseio.com",
     "project_id": "food-planner-50e46",
     "storage_bucket": "food-planner-50e46.appspot.com"
   },
@@ -14,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "505418110091-lv540cc6suc27g1007ldbco50d8le0bk.apps.googleusercontent.com",
+          "client_id": "505418110091-9apaosmbgg30fbiave9gqf12th4bbs8k.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.foodplanner",
-            "certificate_hash": "91e42741a5f970fb5a8d7bd678179a198bad858d"
+            "certificate_hash": "bcdce986e4c8d110f58e892a795ea40d0bcdfb3f"
           }
         },
         {

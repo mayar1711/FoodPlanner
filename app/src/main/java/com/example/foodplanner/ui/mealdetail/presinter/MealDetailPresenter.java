@@ -40,4 +40,14 @@ public class MealDetailPresenter  implements MealDetailContractPresenter {
                         throwable -> view.onInsertError(throwable.getMessage())
                 );
     }
+
+    @Override
+    public void addMealToFavRemote(Meal meal) {
+
+    }
+
+    @Override
+    public void addMealPlaneRemote(MealPlane meal) {
+
+    }
 }

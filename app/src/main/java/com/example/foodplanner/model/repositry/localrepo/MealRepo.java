@@ -18,5 +18,9 @@ public interface MealRepo {
     Completable insertMealToPlane(MealPlane meal);
     void deleteMealPlane(MealPlane meal);
     Flowable<List<MealPlane>> getPlaneMeal();
+    void insertProductToFavoriteRemote(Meal meal);
+    void insertMealToPlaneRemote(MealPlane mealPlane);
+    void deletePlaneInRemote(MealPlane mealPlane);
+    void deleteMealInRemote(Meal meal);
 
 }

@@ -16,4 +16,7 @@ public interface MealLocalDatasource {
     Completable insertMealToPlane(MealPlane meal);
     void deleteMealPlane(MealPlane meal);
     Flowable<List<MealPlane>> getPlaneMeals();
+    Completable deleteAllMeals();
+    Completable deleteAllPlanes();
+
 }
