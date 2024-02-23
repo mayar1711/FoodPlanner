@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import com.example.foodplanner.model.data.Category;
@@ -19,11 +18,11 @@ import com.example.foodplanner.model.data.Meal;
 import com.example.foodplanner.model.network.ApiClient;
 import com.example.foodplanner.model.repositry.remoterepo.RepositoryImpl;
 import com.example.foodplanner.ui.meallist.Categorie.presenter.MealListPresenter;
+import com.example.foodplanner.ui.meallist.Categorie.presenter.PresenterInterface;
 
 public class CategoryList extends Fragment  implements MealListView ,OnItemClickListener{
-    private RecyclerView recyclerView;
     private MealListAdapter adapter;
-    private MealListPresenter presenter;
+    private PresenterInterface presenter;
 
     public CategoryList() {
     }
@@ -31,13 +30,13 @@ public class CategoryList extends Fragment  implements MealListView ,OnItemClick
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         adapter = new MealListAdapter();
-        presenter = new MealListPresenter(new RepositoryImpl(ApiClient.getApiService()), this);
+        presenter = new MealListPresenter(RepositoryImpl.getInstance(ApiClient.getApiService()), this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_category_list, container, false);
-        recyclerView = view.findViewById(R.id.recycler_view_meal_list);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_meal_list);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(adapter);
@@ -64,7 +63,6 @@ public class CategoryList extends Fragment  implements MealListView ,OnItemClick
     }
     @Override
     public void onClickCategory(Meal meal) {
-     //   Toast.makeText(requireActivity(), "Clicked category: " + meal.getStrMeal(), Toast.LENGTH_SHORT).show();
         Bundle bundle = new Bundle();
         bundle.putSerializable("meal", (Serializable) meal);
         Navigation.findNavController(requireView()).navigate(R.id.action_categoryList_to_mealById,bundle);

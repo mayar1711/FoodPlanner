@@ -17,13 +17,21 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class RepositoryImpl implements RepositoryInterface {
     private final ApiService apiService;
+    private static RepositoryImpl repo = null;
     private static final String TAG ="repo";
-    public RepositoryImpl(ApiService apiService) {
+    private RepositoryImpl(ApiService apiService) {
         this.apiService = apiService;
     }
-
+    public static synchronized RepositoryImpl getInstance(ApiService apiService)
+    {
+        if(repo==null)
+        {
+            repo=new RepositoryImpl(apiService);
+        }
+        return repo;
+    }
     @Override
-    public Disposable getCategories(io.reactivex.rxjava3.core.SingleObserver<CategoryResponse> observer) {
+    public Disposable getCategories(SingleObserver<CategoryResponse> observer) {
         return apiService.getCategories()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

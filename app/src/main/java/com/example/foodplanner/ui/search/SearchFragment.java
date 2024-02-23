@@ -82,7 +82,7 @@ public class SearchFragment extends Fragment implements CuisineView, OnIngredien
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
         ingrediantRecyclerView.setAdapter(ingredientAdapter);
-        ingredientPresenter=new IngredientPresenterImp(new RepositoryImpl(apiService),this);
+        ingredientPresenter=new IngredientPresenterImp(RepositoryImpl.getInstance(apiService),this);
         ingredientPresenter.getIngredient();
         ingredientAdapter.setOnIngredientClick(this);
         recyclerView =view.findViewById(R.id.recycler_cuisine);
@@ -92,7 +92,7 @@ public class SearchFragment extends Fragment implements CuisineView, OnIngredien
         linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(cuisineAdapter);
-        cuisinePresenter=new CuisinePresenterImp(new RepositoryImpl(apiService),this);
+        cuisinePresenter=new CuisinePresenterImp(RepositoryImpl.getInstance(apiService),this);
         cuisinePresenter.getCuisines();
         search = view.findViewById(R.id.tv_search);
         search.setOnClickListener(v -> {

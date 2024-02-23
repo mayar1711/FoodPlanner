@@ -1,14 +1,11 @@
 package com.example.foodplanner.ui.meallist.Categorie.presenter;
 
 import android.util.Log;
-
 import com.example.foodplanner.model.data.Meal;
 import com.example.foodplanner.model.repositry.remoterepo.RepositoryInterface;
 import com.example.foodplanner.model.response.MealResponse;
 import com.example.foodplanner.ui.meallist.Categorie.view.MealListView;
-
 import java.util.ArrayList;
-
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.Disposable;

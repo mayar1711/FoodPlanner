@@ -1,4 +1,4 @@
-package com.example.foodplanner.model.firebase;
+package com.example.foodplanner.model.firebase.datasource;
 
 import com.example.foodplanner.model.data.Meal;
 import com.example.foodplanner.model.data.MealPlane;

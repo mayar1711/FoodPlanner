@@ -16,8 +16,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.foodplanner.R;
-import com.example.foodplanner.model.firebase.AuthListener;
-import com.example.foodplanner.model.firebase.AuthRepositoryImp;
+import com.example.foodplanner.model.firebase.repo.AuthListener;
+import com.example.foodplanner.model.firebase.repo.AuthRepositoryImp;
 import com.example.foodplanner.ui.HomeActivity;
 import com.example.foodplanner.ui.authentication.signup.presenter.SignUpPresenterImp;
 import com.google.android.material.textfield.TextInputEditText;

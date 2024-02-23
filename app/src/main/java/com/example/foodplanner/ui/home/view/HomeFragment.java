@@ -1,7 +1,12 @@
 package com.example.foodplanner.ui.home.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,52 +22,33 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.foodplanner.R;
 import com.example.foodplanner.model.data.Category;
 import com.example.foodplanner.model.data.Meal;
-import com.example.foodplanner.model.firebase.AuthRepositoryImp;
+import com.example.foodplanner.model.firebase.repo.AuthRepositoryImp;
 import com.example.foodplanner.model.network.ApiClient;
 import com.example.foodplanner.model.network.ApiService;
 import com.example.foodplanner.model.repositry.remoterepo.RepositoryImpl;
-import com.example.foodplanner.ui.HomeActivity;
 import com.example.foodplanner.ui.authentication.MainActivity;
-import com.example.foodplanner.ui.favorite.view.FavoriteFragment;
 import com.example.foodplanner.ui.home.presinter.CategoryPresenter;
 import com.example.foodplanner.ui.home.presinter.CategoryPresenterImpl;
 import com.example.foodplanner.ui.home.presinter.MealPresenter;
 import com.example.foodplanner.ui.home.presinter.MealPresenterImpl;
-import android.net.ConnectivityManager;
-import android.net.Network;
-import android.net.NetworkCapabilities;
-import android.os.Build;
 
 import java.io.Serializable;
 import java.util.List;
 
-import io.reactivex.rxjava3.disposables.Disposable;
-
-public class HomeFragment extends Fragment implements OnCategoryClickListener, CategoryAdapter.CategoryView, MealView {
-
-    private RecyclerView recyclerView;
-
-    private CategoryPresenter categoryPresenter;
+public class HomeFragment extends Fragment implements OnCategoryClickListener,CategoryView, MealView {
 
     private CategoryAdapter categoryAdapter;
-    private MealPresenter presenter;
     private TextView meal;
     private ImageView imageView;
-    private List<Meal> meals;
     private CardView mealRandom ;
-    private Disposable randomMeaDisposable;
-    private Disposable categoryDisposable;
-
     private ImageFilterButton logout;
     private ImageView noInternetImageView;
-
-
-    private static final String TAG ="home ";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +70,7 @@ public class HomeFragment extends Fragment implements OnCategoryClickListener, C
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView =view.findViewById(R.id.recycler);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler);
         meal=view.findViewById(R.id.tv_meal_day);
         imageView=view.findViewById(R.id.imageViewOfTheDay);
         mealRandom=view.findViewById(R.id.cardViewRandomMeal);
@@ -92,15 +78,14 @@ public class HomeFragment extends Fragment implements OnCategoryClickListener, C
         checkInternetConnection();
         categoryAdapter = new CategoryAdapter();
         categoryAdapter.setClickListener(this);
-        LinearLayoutManager linearLayoutManager1 =new LinearLayoutManager(requireActivity());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(categoryAdapter);
         ApiService apiService = ApiClient.getApiService();
-        categoryPresenter = new CategoryPresenterImpl(new RepositoryImpl(apiService), this);
+        CategoryPresenter categoryPresenter = new CategoryPresenterImpl(RepositoryImpl.getInstance(apiService), this);
         categoryPresenter.getCategories();
-        presenter = new MealPresenterImpl(new RepositoryImpl(apiService),this);
+        MealPresenter presenter = new MealPresenterImpl(RepositoryImpl.getInstance(apiService), this);
         presenter.getMealList();
         logout=view.findViewById(R.id.logout);
         logout.setOnClickListener(v -> {
@@ -140,6 +125,7 @@ public class HomeFragment extends Fragment implements OnCategoryClickListener, C
             noInternetImageView.setVisibility(View.VISIBLE);
         }
     }
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void showCategories(List<Category> categories) {
         categoryAdapter.setCategories(categories);
@@ -152,6 +138,7 @@ public class HomeFragment extends Fragment implements OnCategoryClickListener, C
         Toast.makeText(requireActivity(), "Error: " + error, Toast.LENGTH_SHORT).show();
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void displayMeals(List<Meal> meals) {
         if (meals != null && !meals.isEmpty()) {
@@ -177,33 +164,5 @@ public class HomeFragment extends Fragment implements OnCategoryClickListener, C
     public void displayError(String message) {
         Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show();
 
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (randomMeaDisposable != null && !randomMeaDisposable.isDisposed()) {
-            randomMeaDisposable.dispose();
-        }
-
-        if (categoryDisposable != null && !categoryDisposable.isDisposed()) {
-            categoryDisposable.dispose();
-        }
-
-        // Release references to views
-        recyclerView = null;
-        meal = null;
-        imageView = null;
-        mealRandom = null;
-
-        // Set the adapters to null to release references
-        if (categoryAdapter != null) {
-            categoryAdapter.setClickListener(null);
-            categoryAdapter = null;
-        }
-
-        if (presenter != null) {
-            presenter = null;
-        }
     }
 }

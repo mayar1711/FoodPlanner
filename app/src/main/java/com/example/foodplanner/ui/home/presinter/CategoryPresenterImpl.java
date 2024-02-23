@@ -1,17 +1,16 @@
 package com.example.foodplanner.ui.home.presinter;
 
-
 import com.example.foodplanner.model.repositry.remoterepo.RepositoryInterface;
 import com.example.foodplanner.model.response.CategoryResponse;
-import com.example.foodplanner.ui.home.view.CategoryAdapter;
+import com.example.foodplanner.ui.home.view.CategoryView;
 
 import io.reactivex.rxjava3.disposables.Disposable;
 
 public class CategoryPresenterImpl implements CategoryPresenter {
     private final RepositoryInterface categoryRepository;
-    private final CategoryAdapter.CategoryView categoryView;
+    private final CategoryView categoryView;
 
-    public CategoryPresenterImpl(RepositoryInterface categoryRepository, CategoryAdapter.CategoryView categoryView) {
+    public CategoryPresenterImpl(RepositoryInterface categoryRepository, CategoryView categoryView) {
         this.categoryRepository = categoryRepository;
         this.categoryView = categoryView;
     }

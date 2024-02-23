@@ -37,7 +37,7 @@ public class MealByIngradient extends Fragment implements IngredientListView , O
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ingredientAdapter=new IngredientAdapter();
-        presenter=new IngredientListPresenterImp(new RepositoryImpl(ApiClient.getApiService()), this);
+        presenter=new IngredientListPresenterImp(RepositoryImpl.getInstance(ApiClient.getApiService()), this);
 
     }
 

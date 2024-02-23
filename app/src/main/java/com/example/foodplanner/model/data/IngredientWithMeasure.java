@@ -1,8 +1,8 @@
 package com.example.foodplanner.model.data;
 
 public class IngredientWithMeasure {
-    String ingredientName;
-    String ingredientMeasure;
+    private String ingredientName;
+    private String ingredientMeasure;
 
     public IngredientWithMeasure(String ingredientName, String ingredientMeasure) {
         this.ingredientName = ingredientName;

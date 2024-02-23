@@ -2,9 +2,7 @@
 
 import java.util.ArrayList;
 
-public class GetArrayFromMeal {
-
-
+public class ArrayFromMeal {
     public static ArrayList<IngredientWithMeasure> getArrayList(Meal meal) {
         ArrayList<IngredientWithMeasure> list = new ArrayList<>();
         makeArrayFromMeal(meal, list);

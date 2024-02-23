@@ -8,13 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
-
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.foodplanner.R;
 import com.example.foodplanner.model.data.Meal;
 import com.example.foodplanner.model.network.ApiClient;
@@ -37,7 +34,7 @@ public class SearchByNameFragment extends Fragment implements SearchByNameView ,
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new SearchByNamePresenterImp(new RepositoryImpl(ApiClient.getApiService()), this);
+        presenter = new SearchByNamePresenterImp(RepositoryImpl.getInstance(ApiClient.getApiService()), this);
         adapter = new SearchByNameAdapter();
 
     }

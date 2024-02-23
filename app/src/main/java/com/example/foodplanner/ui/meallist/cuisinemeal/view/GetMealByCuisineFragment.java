@@ -32,7 +32,7 @@ public class GetMealByCuisineFragment extends Fragment implements CuisineListVie
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         cuisineAdapter=new CuisineAdapter();
-        presenter=new CuisinePresenterImp(new RepositoryImpl(ApiClient.getApiService()), this);
+        presenter=new CuisinePresenterImp(RepositoryImpl.getInstance(ApiClient.getApiService()), this);
 
     }
 

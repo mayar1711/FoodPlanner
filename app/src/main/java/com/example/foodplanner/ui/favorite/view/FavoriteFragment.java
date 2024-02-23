@@ -12,18 +12,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.Toast;
+
 import com.example.foodplanner.R;
 import com.example.foodplanner.model.data.Meal;
-import com.example.foodplanner.model.firebase.AuthRepositoryImp;
-import com.example.foodplanner.model.firebase.FirebaseDatabaseHelper;
 import com.example.foodplanner.model.repositry.localrepo.MealRepoImp;
 import com.example.foodplanner.model.repositry.localrepo.MealLocalDatasourceImp;
 import com.example.foodplanner.ui.favorite.presenter.FavMeal;
 import com.example.foodplanner.ui.favorite.presenter.FavMealImp;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;

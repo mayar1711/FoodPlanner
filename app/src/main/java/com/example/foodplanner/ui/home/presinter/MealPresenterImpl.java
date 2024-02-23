@@ -9,8 +9,6 @@ import io.reactivex.rxjava3.disposables.Disposable;
 public class MealPresenterImpl implements MealPresenter {
     private final RepositoryInterface repository;
     private final MealView view;
-    private static final String TAG="MealP";
-
     public MealPresenterImpl(RepositoryInterface repository, MealView view) {
         this.repository = repository;
         this.view = view;
@@ -33,7 +31,6 @@ public class MealPresenterImpl implements MealPresenter {
                   else
                       view.displayError("Failed to fetch Meal");
             }
-
             @Override
             public void onError(@NonNull Throwable e) {
                  view.displayError(e.getMessage());

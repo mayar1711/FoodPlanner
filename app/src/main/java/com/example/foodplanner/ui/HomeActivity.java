@@ -1,12 +1,8 @@
 package com.example.foodplanner.ui;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
-import com.example.foodplanner.R;
-import com.example.foodplanner.model.firebase.FirebaseDatabaseHelper;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
@@ -14,7 +10,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.foodplanner.databinding.ActivityHomeBinding;
+import com.example.foodplanner.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -39,10 +36,6 @@ public class HomeActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if(currentUser!=null) {
-            new FirebaseDatabaseHelper().getAllFavorite(this);
-            new FirebaseDatabaseHelper().getAllFavoriteWeelPlan(this);
-        }
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             if (destination.getId() == R.id.searchByNameFragment ||
                     destination.getId() == R.id.mealDetailFragment ||

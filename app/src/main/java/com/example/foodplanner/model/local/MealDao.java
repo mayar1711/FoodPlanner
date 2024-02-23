@@ -13,11 +13,11 @@ import io.reactivex.rxjava3.core.Flowable;
 @Dao
 public interface MealDao {
     @Query("Select * from meal")
-    Flowable<List<Meal>> getAllProducts();
+    Flowable<List<Meal>> getAllMeal();
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    Completable insertProductToFavorite(Meal meal);
+    Completable insertMealToFavorite(Meal meal);
     @Delete
-    void deleteProductFromFavorite(Meal meal);
+    void deleteMealFromFavorite(Meal meal);
     @Query("Select * from plane")
     Flowable<List<MealPlane>> getAllMealPlane();
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -26,7 +26,6 @@ public interface MealDao {
     void deleteMealFromPlane(MealPlane meal);
     @Query("DELETE FROM meal")
     Completable deleteAllMeals();
-
     @Query("DELETE FROM plane")
     Completable deleteAllPlanes();
 }

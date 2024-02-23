@@ -1,7 +1,8 @@
-package com.example.foodplanner.model.firebase;
+package com.example.foodplanner.model.firebase.datasource;
 
 import com.example.foodplanner.model.data.Meal;
 import com.example.foodplanner.model.data.MealPlane;
+import com.example.foodplanner.model.firebase.database.FirebaseDatabaseHelper;
 import com.google.firebase.auth.FirebaseAuth;
 import io.reactivex.rxjava3.core.Completable;
 

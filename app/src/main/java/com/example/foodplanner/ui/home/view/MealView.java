@@ -1,6 +1,5 @@
 package com.example.foodplanner.ui.home.view;
 
-import com.example.foodplanner.model.data.Category;
 import com.example.foodplanner.model.data.Meal;
 
 import java.util.List;

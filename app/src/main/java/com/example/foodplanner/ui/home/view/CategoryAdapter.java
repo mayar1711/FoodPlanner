@@ -64,9 +64,4 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         }
     }
-
-    public static interface CategoryView {
-        void showCategories(List<Category> categories);
-        void showError(String error);
-    }
 }

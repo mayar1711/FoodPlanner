@@ -1,23 +1,20 @@
 package com.example.foodplanner.model.repositry.localrepo;
 
+import android.annotation.SuppressLint;
+
 import com.example.foodplanner.model.data.Meal;
 import com.example.foodplanner.model.data.MealPlane;
-import com.example.foodplanner.model.firebase.MealRemoteDatasourceImp;
-import com.example.foodplanner.model.response.MealResponse;
+import com.example.foodplanner.model.firebase.datasource.MealRemoteDatasourceImp;
 
 import java.util.List;
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
-import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MealRepoImp implements MealRepo {
-    private MealLocalDatasource mealLocalDatasource;
+    private final MealLocalDatasource mealLocalDatasource;
     private static MealRepoImp mealRepoImp;
-    private MealRemoteDatasourceImp remoteDatasourceImp;
-
+    private final MealRemoteDatasourceImp remoteDatasourceImp;
     public static MealRepoImp getInstance(MealLocalDatasource mealLocalDatasource)
     {
         if(mealRepoImp==null)
@@ -26,16 +23,11 @@ public class MealRepoImp implements MealRepo {
         }
         return mealRepoImp;
     }
-    public MealRepoImp (MealLocalDatasource mealLocalDatasource)
+    private MealRepoImp (MealLocalDatasource mealLocalDatasource)
     {
         this.mealLocalDatasource=mealLocalDatasource;
         this.remoteDatasourceImp = new MealRemoteDatasourceImp();
     }
-    @Override
-    public Single<MealResponse> getAllProducts() {
-        return null;
-    }
-
     @Override
     public Completable insertProductToFavorite(Meal meal) {
         return mealLocalDatasource.insertProductToFavorite(meal)
@@ -71,6 +63,7 @@ public class MealRepoImp implements MealRepo {
         return mealLocalDatasource.getPlaneMeals();
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void insertProductToFavoriteRemote(Meal meal) {
         remoteDatasourceImp.insertProductToFavorite( meal)
@@ -82,9 +75,9 @@ public class MealRepoImp implements MealRepo {
                 );
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void insertMealToPlaneRemote(MealPlane mealPlane) {
-        // Assuming you have access to the user's email address
         remoteDatasourceImp.insertMealToPlan(mealPlane)
                 .subscribe(
                         () -> {
