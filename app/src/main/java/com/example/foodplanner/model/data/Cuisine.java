@@ -3,7 +3,7 @@ package com.example.foodplanner.model.data;
 import java.io.Serializable;
 
 public class Cuisine implements Serializable {
-    private String strArea; // Adjusted field name
+    private String strArea;
 
     public String getStrArea() {
         return strArea;

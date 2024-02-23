@@ -40,6 +40,46 @@ public class Meal implements Serializable {
         return strArea;
     }
 
+    public String getStrSource() {
+        return strSource;
+    }
+
+    public void setStrSource(String strSource) {
+        this.strSource = strSource;
+    }
+
+    public Object getStrImageSource() {
+        return strImageSource;
+    }
+
+    public void setStrImageSource(Object strImageSource) {
+        this.strImageSource = strImageSource;
+    }
+
+    public void setStrMeal(String strMeal) {
+        this.strMeal = strMeal;
+    }
+
+    public String getStrInstructions() {
+        return strInstructions;
+    }
+
+    public void setStrInstructions(String strInstructions) {
+        this.strInstructions = strInstructions;
+    }
+
+    public void setStrMealThumb(String strMealThumb) {
+        this.strMealThumb = strMealThumb;
+    }
+
+    public String getStrYoutube() {
+        return strYoutube;
+    }
+
+    public void setStrYoutube(String strYoutube) {
+        this.strYoutube = strYoutube;
+    }
+
     public void setStrArea(String strArea) {
         this.strArea = strArea;
     }

@@ -21,7 +21,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.foodplanner.R;
-import com.example.foodplanner.model.data.GetArrayFromMeal;
+import com.example.foodplanner.model.data.ArrayFromMeal;
 import com.example.foodplanner.model.data.Meal;
 import com.example.foodplanner.model.data.MealPlane;
 import com.example.foodplanner.model.repositry.localrepo.MealRepoImp;
@@ -30,7 +30,6 @@ import com.example.foodplanner.ui.authentication.MainActivity;
 import com.example.foodplanner.ui.mealdetail.presinter.GetIdFromYoutubeUrl;
 import com.example.foodplanner.ui.mealdetail.presinter.MealDetailContractPresenter;
 import com.example.foodplanner.ui.mealdetail.presinter.MealDetailPresenter;
-import com.example.foodplanner.ui.splash.SplashScreen;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
@@ -177,8 +176,8 @@ public class MealDetailFragment extends Fragment implements MealDetailContractVi
         Log.i("TAG", "displayMealDetails: "+meal.getStrArea());
         placeholder.setText(meal.strInstructions);
         Log.i("TAG", "displayMealDetails: "+meal.strInstructions);
-        ingredientsAdapter.setList(GetArrayFromMeal.getArrayList(meal));
-        Log.i("TAG", "displayMealDetails: "+ GetArrayFromMeal.getArrayList(meal).size());
+        ingredientsAdapter.setList(ArrayFromMeal.getArrayList(meal));
+        Log.i("TAG", "displayMealDetails: "+ ArrayFromMeal.getArrayList(meal).size());
         Glide.with(requireContext())
                 .load(meal.getStrMealThumb())
                 .transition(DrawableTransitionOptions.withCrossFade())

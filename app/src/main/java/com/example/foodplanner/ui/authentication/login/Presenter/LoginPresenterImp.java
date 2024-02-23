@@ -1,7 +1,7 @@
 package com.example.foodplanner.ui.authentication.login.Presenter;
 
-import com.example.foodplanner.model.firebase.AuthListener;
-import com.example.foodplanner.model.firebase.AuthRepository;
+import com.example.foodplanner.model.firebase.repo.AuthListener;
+import com.example.foodplanner.model.firebase.repo.AuthRepository;
 import com.example.foodplanner.ui.authentication.login.view.LoginView;
 
 public class LoginPresenterImp implements LoginPresenter , AuthListener {

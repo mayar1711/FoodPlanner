@@ -11,7 +11,6 @@ import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
 
 public interface MealRepo {
-    public Single<MealResponse> getAllProducts();
     Completable insertProductToFavorite(Meal meal);
     void deleteFavoriteProduct(Meal meal);
     Flowable<List<Meal>> getFavProducts();
@@ -22,5 +21,4 @@ public interface MealRepo {
     void insertMealToPlaneRemote(MealPlane mealPlane);
     void deletePlaneInRemote(MealPlane mealPlane);
     void deleteMealInRemote(Meal meal);
-
 }

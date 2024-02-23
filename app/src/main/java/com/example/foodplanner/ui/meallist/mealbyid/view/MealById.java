@@ -22,7 +22,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.foodplanner.R;
-import com.example.foodplanner.model.data.GetArrayFromMeal;
+import com.example.foodplanner.model.data.ArrayFromMeal;
 import com.example.foodplanner.model.data.Meal;
 import com.example.foodplanner.model.data.MealPlane;
 import com.example.foodplanner.model.network.ApiClient;
@@ -64,7 +64,7 @@ public class MealById extends Fragment implements MealByIdView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter=new MealByIdPresenterImp(new RepositoryImpl(ApiClient.getApiService()), this, MealRepoImp.getInstance(MealLocalDatasourceImp.getInstance(requireContext())));
+        presenter=new MealByIdPresenterImp(RepositoryImpl.getInstance(ApiClient.getApiService()), this, MealRepoImp.getInstance(MealLocalDatasourceImp.getInstance(requireContext())));
 
     }
 
@@ -159,7 +159,7 @@ public class MealById extends Fragment implements MealByIdView {
 
             placeholder.setText(meal.strInstructions);
             Log.i("TAG", "displayMealDetails: " + meal.strInstructions);
-            ingredientsAdapter.setList(GetArrayFromMeal.getArrayList(meal));
+            ingredientsAdapter.setList(ArrayFromMeal.getArrayList(meal));
 
             Glide.with(requireContext())
                     .load(meal.getStrMealThumb())

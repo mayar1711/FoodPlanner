@@ -23,11 +23,11 @@ public class MealLocalDatasourceImp implements MealLocalDatasource{
     private Flowable<List<MealPlane>> mealPlane;
     private static MealLocalDatasourceImp localDatasourceImp;
     private MyDataBase dataBase;
-    public MealLocalDatasourceImp(Context context)
+   private MealLocalDatasourceImp(Context context)
     {
         dataBase=MyDataBase.getInstance(context);
         mealDao=dataBase.getproductDao();
-        favMeals=mealDao.getAllProducts();
+        favMeals=mealDao.getAllMeal();
         mealPlane=mealDao.getAllMealPlane();
     }
     public static synchronized MealLocalDatasourceImp getInstance(Context context){
@@ -39,20 +39,20 @@ public class MealLocalDatasourceImp implements MealLocalDatasource{
     }
     @Override
     public Completable insertProductToFavorite(Meal meal) {
-        return mealDao.insertProductToFavorite(meal)
+        return mealDao.insertMealToFavorite(meal)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
     @Override
     public void deleteFavoriteProduct(Meal meal) {
-        new Thread(() -> mealDao.deleteProductFromFavorite(meal)){
+        new Thread(() -> mealDao.deleteMealFromFavorite(meal)){
         }.start();
     }
 
     @Override
     public Flowable<List<Meal>> getFavMeals() {
         if (favMeals == null) {
-            favMeals = mealDao.getAllProducts();
+            favMeals = mealDao.getAllMeal();
         }
         return favMeals;
     }

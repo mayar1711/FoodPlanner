@@ -1,11 +1,8 @@
 package com.example.foodplanner.ui.authentication.signup.presenter;
 
-import android.content.Intent;
-
-import com.example.foodplanner.model.firebase.AuthListener;
-import com.example.foodplanner.model.firebase.AuthRepository;
+import com.example.foodplanner.model.firebase.repo.AuthListener;
+import com.example.foodplanner.model.firebase.repo.AuthRepository;
 import com.example.foodplanner.ui.authentication.signup.view.SignUp;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 public class SignUpPresenterImp implements SignUpPresenter, AuthListener {
     private final AuthRepository repository;

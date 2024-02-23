@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.example.foodplanner.R;
 import com.example.foodplanner.ui.authentication.MainActivity;
 
-public class OnBording extends AppCompatActivity {
+public class OnBoarding extends AppCompatActivity {
 
     private ViewPager viewPager;
     private LinearLayout linearLayout;
@@ -42,14 +42,14 @@ public class OnBording extends AppCompatActivity {
             if (getItem(0) < 1)
                 viewPager.setCurrentItem(getItem(1), true);
             else {
-                Intent intent = new Intent(OnBording.this, MainActivity.class);
+                Intent intent = new Intent(OnBoarding.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
 
         skip.setOnClickListener(v -> {
-            Intent intent = new Intent(OnBording.this, MainActivity.class);
+            Intent intent = new Intent(OnBoarding.this, MainActivity.class);
             startActivity(intent);
             finish();
         });

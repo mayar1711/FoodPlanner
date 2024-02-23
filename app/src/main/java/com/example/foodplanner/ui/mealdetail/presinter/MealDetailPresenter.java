@@ -1,5 +1,7 @@
 package com.example.foodplanner.ui.mealdetail.presinter;
 
+import android.annotation.SuppressLint;
+
 import com.example.foodplanner.model.data.Meal;
 import com.example.foodplanner.model.data.MealPlane;
 import com.example.foodplanner.model.repositry.localrepo.MealRepo;
@@ -23,6 +25,7 @@ public class MealDetailPresenter  implements MealDetailContractPresenter {
         view.displayMealDetails(meal);
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void addProductToFavorite(Meal meal) {
         mealRepo.insertProductToFavorite(meal)
@@ -32,6 +35,7 @@ public class MealDetailPresenter  implements MealDetailContractPresenter {
                 );
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void addMealPlane(MealPlane mealPlane) {
         mealRepo.insertMealToPlane(mealPlane)
@@ -41,13 +45,4 @@ public class MealDetailPresenter  implements MealDetailContractPresenter {
                 );
     }
 
-    @Override
-    public void addMealToFavRemote(Meal meal) {
-
-    }
-
-    @Override
-    public void addMealPlaneRemote(MealPlane meal) {
-
-    }
 }

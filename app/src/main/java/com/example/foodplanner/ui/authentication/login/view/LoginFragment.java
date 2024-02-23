@@ -14,14 +14,12 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.foodplanner.R;
-import com.example.foodplanner.model.firebase.AuthListener;
-import com.example.foodplanner.model.firebase.AuthRepositoryImp;
-import com.example.foodplanner.model.firebase.EmailListener;
-import com.example.foodplanner.model.firebase.FirebaseDatabaseHelper;
+import com.example.foodplanner.model.firebase.repo.AuthListener;
+import com.example.foodplanner.model.firebase.repo.AuthRepositoryImp;
+import com.example.foodplanner.model.firebase.repo.EmailListener;
 import com.example.foodplanner.ui.HomeActivity;
 import com.example.foodplanner.ui.authentication.login.Presenter.LoginPresenterImp;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -129,7 +127,6 @@ public class LoginFragment extends Fragment implements LoginView , AuthListener 
     @Override
     public void navigateToHome() {
         Toast.makeText(requireActivity(), "successful ", Toast.LENGTH_SHORT).show();
-
         Intent intent = new Intent(requireActivity(), HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);

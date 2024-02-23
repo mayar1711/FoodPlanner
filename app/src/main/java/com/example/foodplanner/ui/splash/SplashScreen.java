@@ -10,7 +10,7 @@ import android.os.Handler;
 import com.example.foodplanner.R;
 import com.example.foodplanner.ui.HomeActivity;
 import com.example.foodplanner.ui.authentication.MainActivity;
-import com.example.foodplanner.ui.onbording.OnBording;
+import com.example.foodplanner.ui.onbording.OnBoarding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -33,7 +33,7 @@ public class SplashScreen extends AppCompatActivity {
                     SharedPreferences.Editor editor = mSharedPreferences.edit();
                     editor.putBoolean("firstTime", false);
                     editor.apply();
-                    Intent intent = new Intent(SplashScreen.this, OnBording.class);
+                    Intent intent = new Intent(SplashScreen.this, OnBoarding.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
 

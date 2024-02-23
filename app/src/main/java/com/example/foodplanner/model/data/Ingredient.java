@@ -3,14 +3,11 @@ package com.example.foodplanner.model.data;
 import java.io.Serializable;
 
 public class Ingredient implements Serializable {
-    public String idIngredient;
-    public String strIngredient;
-    public String strDescription;
-    public Object strType;
+    private String idIngredient;
+    private String strIngredient;
+    private String strDescription;
+    private Object strType;
 
-    public Ingredient(){
-
-    }
     public Ingredient(String idIngredient, String strIngredient, String strDescription, Object strType) {
         this.idIngredient = idIngredient;
         this.strIngredient = strIngredient;

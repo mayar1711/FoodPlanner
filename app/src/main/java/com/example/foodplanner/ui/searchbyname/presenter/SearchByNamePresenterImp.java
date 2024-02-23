@@ -24,7 +24,6 @@ public class SearchByNamePresenterImp implements SearchByNamePresenter{
     @Override
     public void searchMealsByName(String name) {
         if (name.isEmpty()) {
-            // If the search query is empty, display all meals
             view.displaySearchResults(new ArrayList<>());
         } else {
             repository.getMealByName(name)
